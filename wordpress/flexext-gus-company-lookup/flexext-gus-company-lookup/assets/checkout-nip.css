@@ -1,0 +1,92 @@
+/**
+ * FlexExt Company Lookup for GUS - Frontend Checkout Styles
+ *
+ * @version 1.0.3
+ */
+
+#billing_vat_nip_field .description,
+.flexcolo-nip-field-wrap .description,
+.flexcolo-vat-nip-field .description {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    pointer-events: none !important;
+}
+
+.flexcolo-action-wrapper {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    clear: both;
+}
+
+.flexcolo-action-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.flexcolo-lookup-btn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border: 1px solid #1e293b !important;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none !important;
+}
+
+.flexcolo-lookup-btn:hover,
+.flexcolo-lookup-btn:focus {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.flexcolo-lookup-btn:disabled {
+    opacity: 0.75;
+    cursor: wait;
+}
+
+.flexcolo-hint {
+    font-size: 11px;
+    color: #475569;
+}
+
+.flexcolo-status-msg {
+    display: none;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    line-height: 1.4;
+}
+
+.flexcolo-status-msg.flexcolo-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.flexcolo-status-msg.flexcolo-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.flexcolo-status-msg.flexcolo-warning {
+    background-color: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}

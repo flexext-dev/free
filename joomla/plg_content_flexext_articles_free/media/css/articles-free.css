@@ -1,0 +1,109 @@
+/* FlexExt Articles Free Styles */
+:root {
+    --flx-reading-bar-color: #1980F7;
+}
+
+#flx-reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--flx-reading-bar-color);
+    width: 0%;
+    z-index: 999999;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 8px rgba(25, 128, 247, 0.6);
+}
+
+.flx-reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(25, 128, 247, 0.08);
+    color: #1e40af;
+    border: 1px solid rgba(25, 128, 247, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.flx-social-share {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 28px 0;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.flx-share-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+    margin-right: 6px;
+}
+
+.flx-btn-share {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 12px;
+    font-weight: 800;
+    transition: transform 0.15s ease;
+}
+
+.flx-btn-share:hover {
+    transform: translateY(-2px);
+}
+
+.flx-fb { background: #1877F2; }
+.flx-tw { background: #0F1419; }
+.flx-in { background: #0A66C2; }
+.flx-wa { background: #25D366; }
+
+.flx-author-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid var(--flx-reading-bar-color);
+    border-radius: 10px;
+    margin: 30px 0;
+}
+
+.flx-author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.flx-author-title {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+.flx-author-name {
+    margin: 2px 0 0 0;
+    font-size: 17px;
+    color: #0f172a;
+    font-weight: 700;
+}

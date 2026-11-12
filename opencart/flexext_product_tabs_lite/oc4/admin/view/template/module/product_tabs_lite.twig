@@ -1,0 +1,236 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" data-bs-toggle="tooltip" title="{{ button_save|default('Save') }}" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Settings</button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back|default('Back') }}" class="btn btn-light"><i class="fa-solid fa-reply"></i> Back</a>
+      </div>
+      <h1>{{ heading_title }} <span class="badge bg-success" style="font-size: 0.75rem;">v{{ version }} Free Edition</span></h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div id="alert"></div>
+
+    <!-- PRO Promotional Upgrade Banner (FlexExt.dev Special Offer) -->
+    <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 12px; overflow: hidden;">
+      <div class="card-body p-4 d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+        <div class="pe-lg-3">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="fa-solid fa-crown me-1"></i> ★ ODBLOKUJ WERSJĘ PRO (10% OFF)</span>
+            <span class="badge bg-info text-white small">COMMERCIAL UPGRADE</span>
+          </div>
+          <h4 class="text-white fw-bold mb-2" style="font-size: 1.25rem;">Chcesz nieograniczoną liczbę zakładek, przypisywanie do kategorii, reguły klientów i wideo?</h4>
+          <p class="text-white-50 mb-0 small" style="line-height: 1.6;">
+            Pobierz wersję PRO na <strong>FlexExt.dev</strong> (10% rabatu z kodem promocyjnym <span class="badge bg-light text-dark fw-bold px-2 py-1 border">OPENCART10</span>).<br/>
+            <span class="text-white-50 fst-italic">EN: Want unlimited custom tabs, category-level rules, customer group restrictions &amp; video tabs? Upgrade to PRO on FlexExt.dev (10% OFF with code OPENCART10).</span>
+          </p>
+        </div>
+        <div class="text-nowrap mt-2 mt-lg-0">
+          <a href="https://flexext.dev/?utm_source=opencart_marketplace&utm_medium=free_lite_admin&utm_campaign=product_tabs_lite" target="_blank" rel="noopener" class="btn btn-primary px-4 py-3 fw-bold shadow" style="background: #0284c7; border: none; border-radius: 8px; font-size: 0.95rem;">
+            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Pobierz wersję PRO (Kod: OPENCART10) &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Module Settings Card -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 12px;">
+      <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+        <h5 class="card-title mb-0 fw-bold text-dark"><i class="fa-solid fa-folder-plus text-primary me-2"></i>1 Custom Product Tab Settings (Storewide or Per-Product)</h5>
+        <span class="badge bg-light text-secondary border">Lite Limit: 1 Active Tab</span>
+      </div>
+      <div class="card-body p-4">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          
+          <!-- Status Switch -->
+          <div class="row mb-4">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-9">
+              <div class="form-check form-switch form-switch-lg mt-1">
+                <input type="hidden" name="module_product_tabs_lite_status" value="0"/>
+                <input type="checkbox" name="module_product_tabs_lite_status" value="1" id="input-status" class="form-check-input" {% if status %}checked{% endif %}/>
+              </div>
+              <div class="form-text text-muted">Enable or disable displaying this custom tab on storefront product pages.</div>
+            </div>
+          </div>
+
+          <!-- Tab Icon & Sort Order -->
+          <div class="row mb-4">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-icon">{{ entry_tab_icon }}</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <span class="input-group-text bg-white" id="tab-icon-preview"><i class="{{ tab_icon }} text-primary"></i></span>
+                <input type="text" name="module_product_tabs_lite_icon" value="{{ tab_icon }}" id="input-icon" class="form-control" placeholder="fa-solid fa-ruler-combined"/>
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" title="Choose Preset Icon"></button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                  <li><h6 class="dropdown-header">Popular Presets</h6></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-ruler-combined"><i class="fa-solid fa-ruler-combined me-2 text-primary"></i> Size Guide / Dimensions</a></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-truck-fast"><i class="fa-solid fa-truck-fast me-2 text-primary"></i> Shipping &amp; Delivery</a></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-shield-halved"><i class="fa-solid fa-shield-halved me-2 text-primary"></i> Warranty &amp; Guarantee</a></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-circle-question"><i class="fa-solid fa-circle-question me-2 text-primary"></i> FAQ &amp; Instructions</a></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-book-open"><i class="fa-solid fa-book-open me-2 text-primary"></i> User Manual &amp; Docs</a></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-list-check"><i class="fa-solid fa-list-check me-2 text-primary"></i> Technical Specifications</a></li>
+                  <li><a class="dropdown-item icon-preset" href="#" data-icon="fa-solid fa-file-lines"><i class="fa-solid fa-file-lines me-2 text-primary"></i> General Information</a></li>
+                </ul>
+              </div>
+              <div class="form-text text-muted">{{ help_tab_icon }}</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="input-group">
+                <span class="input-group-text bg-white"><i class="fa-solid fa-arrow-down-1-9 text-muted"></i></span>
+                <input type="number" name="module_product_tabs_lite_sort_order" value="{{ sort_order }}" id="input-sort-order" class="form-control" placeholder="Sort Order (e.g. 2)"/>
+              </div>
+              <div class="form-text text-muted">Tab position alongside Description and Reviews (default: 2).</div>
+            </div>
+          </div>
+
+          <hr class="my-4 text-muted"/>
+
+          <!-- Language Tabs for Multilingual Title & Content -->
+          <h6 class="fw-bold mb-3"><i class="fa-solid fa-language text-primary me-2"></i>Multilingual Tab Content</h6>
+          <ul class="nav nav-tabs mb-3" id="language-tabs" role="tablist">
+            {% for language in languages %}
+              <li class="nav-item" role="presentation">
+                <button class="nav-link {% if loop.first %}active{% endif %}" id="lang-tab-{{ language.language_id }}" data-bs-toggle="tab" data-bs-target="#lang-content-{{ language.language_id }}" type="button" role="tab">
+                  <img src="{{ language.image }}" title="{{ language.name }}" class="me-1"/> {{ language.name }}
+                </button>
+              </li>
+            {% endfor %}
+          </ul>
+
+          <div class="tab-content" id="language-tabs-content">
+            {% for language in languages %}
+              <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="lang-content-{{ language.language_id }}" role="tabpanel">
+                
+                <!-- Tab Title -->
+                <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label fw-semibold" for="input-title-{{ language.language_id }}">
+                    <span class="text-danger">*</span> {{ entry_tab_title }} ({{ language.name }})
+                  </label>
+                  <div class="col-sm-9">
+                    <input type="text" name="module_product_tabs_lite_description[{{ language.language_id }}][title]" value="{{ descriptions[language.language_id].title|default('Size Guide / Shipping Info') }}" id="input-title-{{ language.language_id }}" class="form-control" placeholder="e.g. Size Guide, Shipping Info, Warranty"/>
+                    <div class="form-text text-muted">{{ help_tab_title }}</div>
+                  </div>
+                </div>
+
+                <!-- Tab Content WYSIWYG -->
+                <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label fw-semibold" for="input-content-{{ language.language_id }}">
+                    {{ entry_tab_content }} ({{ language.name }})
+                  </label>
+                  <div class="col-sm-9">
+                    <textarea name="module_product_tabs_lite_description[{{ language.language_id }}][description]" placeholder="Enter rich text, size chart tables, delivery estimates, or warranty terms here..." id="input-content-{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control" rows="8">{{ descriptions[language.language_id].description|default('') }}</textarea>
+                    <div class="form-text text-muted">{{ help_tab_content }}</div>
+                  </div>
+                </div>
+
+              </div>
+            {% endfor %}
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Feature Comparison (Free Lite vs Pro Suite) -->
+    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+      <div class="card-header bg-white py-3">
+        <h5 class="card-title mb-0 fw-bold"><i class="fa-solid fa-scale-balanced text-primary me-2"></i>Free Lite Edition vs Commercial PRO Comparison</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+              <tr>
+                <th style="width: 45%;">Feature</th>
+                <th class="text-center" style="width: 25%;">Free Lite Edition</th>
+                <th class="text-center text-primary fw-bold" style="width: 30%;">Product Custom Tabs PRO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-semibold">Number of Custom Tabs</td>
+                <td class="text-center"><span class="badge bg-secondary">1 Custom Tab</span></td>
+                <td class="text-center"><span class="badge bg-success">Unlimited Custom Tabs</span></td>
+              </tr>
+              <tr>
+                <td class="fw-semibold">Global Storewide Tab (Size Guide / Shipping Info)</td>
+                <td class="text-center text-success"><i class="fa-solid fa-check"></i> Included</td>
+                <td class="text-center text-success"><i class="fa-solid fa-check"></i> Included</td>
+              </tr>
+              <tr>
+                <td class="fw-semibold">Category-Specific Tab Assignment</td>
+                <td class="text-center text-muted"><i class="fa-solid fa-xmark"></i> Not available</td>
+                <td class="text-center text-success fw-bold"><i class="fa-solid fa-check"></i> Unlimited Category Rules</td>
+              </tr>
+              <tr>
+                <td class="fw-semibold">Customer Group Visibility Restrictions (B2B / Retail)</td>
+                <td class="text-center text-muted"><i class="fa-solid fa-xmark"></i> Not available</td>
+                <td class="text-center text-success fw-bold"><i class="fa-solid fa-check"></i> Per-group restrictions</td>
+              </tr>
+              <tr>
+                <td class="fw-semibold">YouTube &amp; Vimeo Responsive Video Embeds</td>
+                <td class="text-center text-muted"><i class="fa-solid fa-xmark"></i> Manual iframe only</td>
+                <td class="text-center text-success fw-bold"><i class="fa-solid fa-check"></i> 1-Click Video Player Tabs</td>
+              </tr>
+              <tr>
+                <td class="fw-semibold">Excel-like Bulk Manager Import &amp; Export</td>
+                <td class="text-center text-muted"><i class="fa-solid fa-xmark"></i> Not available</td>
+                <td class="text-center text-success fw-bold"><i class="fa-solid fa-check"></i> Full XLSX / CSV Integration</td>
+              </tr>
+              <tr>
+                <td class="fw-semibold">Special Discount Coupon</td>
+                <td class="text-center">—</td>
+                <td class="text-center"><span class="badge bg-warning text-dark fw-bold">10% OFF with code: OPENCART10</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer bg-white p-3 text-center">
+        <a href="https://flexext.dev/?utm_source=opencart_marketplace&utm_medium=free_lite_table&utm_campaign=product_tabs_lite" target="_blank" rel="noopener" class="btn btn-outline-primary px-4 fw-bold">
+          <i class="fa-solid fa-crown me-1"></i> Upgrade to Commercial PRO Suite on FlexExt.dev &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  // Preset Icon Click Handler
+  document.querySelectorAll('.icon-preset').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
+      var icon = this.getAttribute('data-icon');
+      var input = document.getElementById('input-icon');
+      if (input) {
+        input.value = icon;
+      }
+      var preview = document.getElementById('tab-icon-preview');
+      if (preview) {
+        preview.innerHTML = '<i class="' + icon + ' text-primary"></i>';
+      }
+    });
+  });
+
+  // Dynamic Icon Input Change Preview
+  var inputIcon = document.getElementById('input-icon');
+  if (inputIcon) {
+    inputIcon.addEventListener('input', function() {
+      var preview = document.getElementById('tab-icon-preview');
+      if (preview) {
+        preview.innerHTML = '<i class="' + this.value + ' text-primary"></i>';
+      }
+    });
+  }
+});
+</script>
+{{ footer }}

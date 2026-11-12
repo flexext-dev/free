@@ -1,0 +1,471 @@
+{{ header }}{{ column_left }}
+<div id="content" class="flx-gt-admin">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-google-translate" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+          <i class="fa-solid fa-floppy-disk me-1"></i> {{ button_save }}
+        </button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-secondary">
+          <i class="fa-solid fa-reply"></i>
+        </a>
+      </div>
+      <h1><i class="fa-solid fa-language text-primary me-2"></i>{{ heading_title }} <span class="badge bg-success ms-2" style="font-size: 0.72rem; vertical-align: middle;">v{{ version }} FREE</span></h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div id="flx-gt-alert-box"></div>
+
+    {% if not license_info.valid %}
+      <div class="alert alert-danger d-flex align-items-center justify-content-between shadow-sm mb-3" role="alert" style="background: #fef2f2; color: #991b1b; border: 1px solid #f87171;">
+        <div>
+          <i class="fa-solid fa-lock fa-lg me-2"></i>
+          <strong>Strict License Lock Active:</strong> Valid Commercial or Free Community License Key (<code>FLX-FREE-COMMUNITY-2026</code>) is required! All settings and storefront features are locked until activated in the <strong>License &amp; Edition</strong> tab.
+        </div>
+        <button type="button" class="btn btn-sm btn-danger fw-bold" onclick="flxSwitchAdminTab('#tab-license')">
+          <i class="fa-solid fa-key me-1"></i> Activate Key
+        </button>
+      </div>
+    {% endif %}
+
+    <div class="card shadow-sm border-0">
+      <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <span class="fw-bold"><i class="fa-solid fa-sliders me-2 text-primary"></i>{{ text_edit }}</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge {% if license_info.valid %}bg-success{% else %}bg-danger{% endif %}">
+            <i class="fa-solid {% if license_info.valid %}fa-circle-check{% else %}fa-triangle-exclamation{% endif %} me-1"></i>
+            {{ license_info.tier }}
+          </span>
+          <span class="badge bg-primary">
+            <i class="fa-solid fa-bolt me-1"></i> 0ms Initial Load (On-Demand Lazy Script)
+          </span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <form id="form-google-translate" action="{{ save }}" method="post">
+          <ul class="nav nav-tabs mb-4" id="flx-gt-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button type="button" class="nav-link {% if license_info.valid %}active{% endif %}" id="btn-tab-general" data-bs-toggle="tab" data-bs-target="#tab-general" role="tab" onclick="flxSwitchAdminTab('#tab-general')">
+                <i class="fa-solid fa-gear me-1"></i> Placement &amp; Appearance
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button type="button" class="nav-link" id="btn-tab-languages" data-bs-toggle="tab" data-bs-target="#tab-languages" role="tab" onclick="flxSwitchAdminTab('#tab-languages')">
+                <i class="fa-solid fa-earth-europe me-1"></i> Languages &amp; Top Buyer Countries
+                <span class="badge bg-primary ms-1" id="flx-selected-lang-count">{{ selected_languages|length }}</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button type="button" class="nav-link {% if not license_info.valid %}active{% endif %}" id="btn-tab-license" data-bs-toggle="tab" data-bs-target="#tab-license" role="tab" onclick="flxSwitchAdminTab('#tab-license')">
+                <i class="fa-solid fa-key me-1"></i> License &amp; Zero-Lag Engine
+              </button>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <!-- TAB 1: PLACEMENT & APPEARANCE -->
+            <div class="tab-pane fade {% if license_info.valid %}show active{% endif %}" id="tab-general" role="tabpanel">
+              {% if not license_info.valid %}<fieldset disabled style="opacity: 0.45; filter: grayscale(0.6); pointer-events: none; user-select: none;">{% endif %}
+
+              <div class="row g-4">
+                <div class="col-lg-7">
+                  <div class="p-3 rounded border flx-panel-box mb-3">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-toggle-on text-primary me-2"></i>Core Status &amp; Placement</h5>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold" for="input-status">{{ entry_status }}</label>
+                      <div class="col-sm-8">
+                        <div class="form-check form-switch form-switch-lg">
+                          <input type="hidden" name="module_flexext_google_translate_oc4_status" value="0"/>
+                          <input type="checkbox" name="module_flexext_google_translate_oc4_status" value="1" id="input-status" class="form-check-input" {% if status %}checked{% endif %}/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold" for="input-source-lang">{{ entry_source_lang }}</label>
+                      <div class="col-sm-8">
+                        <select name="module_flexext_google_translate_oc4_source_lang" id="input-source-lang" class="form-select">
+                          {% for code, info in language_catalog %}
+                            <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ info.name_en }} ({{ info.name_native }} — {{ code|upper }})</option>
+                          {% endfor %}
+                        </select>
+                        <div class="form-text">Original language of your storefront content (default: English <code>en</code>).</div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold" for="input-position">{{ entry_position }}</label>
+                      <div class="col-sm-8">
+                        <select name="module_flexext_google_translate_oc4_position" id="input-position" class="form-select" onchange="flxToggleCustomSelector(this.value)">
+                          <option value="top_bar_right" {% if position == 'top_bar_right' %}selected{% endif %}>Top Header Bar — Right (Next to Currency / Account)</option>
+                          <option value="top_bar_left" {% if position == 'top_bar_left' %}selected{% endif %}>Top Header Bar — Left</option>
+                          <option value="main_header" {% if position == 'main_header' %}selected{% endif %}>Main Header Bar (Next to Search / Cart)</option>
+                          <option value="floating_bottom_right" {% if position == 'floating_bottom_right' %}selected{% endif %}>Floating Widget — Bottom Right Corner</option>
+                          <option value="floating_bottom_left" {% if position == 'floating_bottom_left' %}selected{% endif %}>Floating Widget — Bottom Left Corner</option>
+                          <option value="custom_selector" {% if position == 'custom_selector' %}selected{% endif %}>Custom CSS Selector (Advanced)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div id="flx-custom-selector-group" style="{% if position != 'custom_selector' %}display:none;{% endif %}">
+                      <div class="row mb-3 align-items-center">
+                        <label class="col-sm-4 col-form-label fw-semibold" for="input-custom-selector">{{ entry_custom_selector }}</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="module_flexext_google_translate_oc4_custom_selector" value="{{ custom_selector }}" id="input-custom-selector" class="form-control" placeholder="#top .header-lang-currency"/>
+                        </div>
+                      </div>
+                      <div class="row mb-3 align-items-center">
+                        <label class="col-sm-4 col-form-label fw-semibold" for="input-custom-insert">{{ entry_custom_insert }}</label>
+                        <div class="col-sm-8">
+                          <select name="module_flexext_google_translate_oc4_custom_insert" id="input-custom-insert" class="form-select">
+                            <option value="prepend" {% if custom_insert == 'prepend' %}selected{% endif %}>Prepend (First child inside selector)</option>
+                            <option value="append" {% if custom_insert == 'append' %}selected{% endif %}>Append (Last child inside selector)</option>
+                            <option value="before" {% if custom_insert == 'before' %}selected{% endif %}>Insert Before selector</option>
+                            <option value="after" {% if custom_insert == 'after' %}selected{% endif %}>Insert After selector</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-3 rounded border flx-panel-box">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-palette text-primary me-2"></i>Visual Variant &amp; UX Behavior</h5>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold" for="input-style-variant">{{ entry_style_variant }}</label>
+                      <div class="col-sm-8">
+                        <select name="module_flexext_google_translate_oc4_style_variant" id="input-style-variant" class="form-select" onchange="flxUpdateVariantPreview()">
+                          <option value="dropdown_flag_code" {% if style_variant == 'dropdown_flag_code' %}selected{% endif %}>Variant 1: Compact Dropdown — SVG Flag + ISO Code (GB EN ▾)</option>
+                          <option value="dropdown_flag_name" {% if style_variant == 'dropdown_flag_name' %}selected{% endif %}>Variant 2: Full Dropdown — SVG Flag + Language Name (GB English ▾)</option>
+                          <option value="dropdown_globe_text" {% if style_variant == 'dropdown_globe_text' %}selected{% endif %}>Variant 3: Clean Globe Icon + Language Dropdown (🌐 Translate ▾)</option>
+                          <option value="inline_flags" {% if style_variant == 'inline_flags' %}selected{% endif %}>Variant 4: Horizontal Flag Icons Bar + More Dropdown</option>
+                          <option value="inline_flags_codes" {% if style_variant == 'inline_flags_codes' %}selected{% endif %}>Variant 5: Horizontal Flag + ISO Pills Bar</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold" for="input-button-theme">{{ entry_button_theme }}</label>
+                      <div class="col-sm-8">
+                        <select name="module_flexext_google_translate_oc4_button_theme" id="input-button-theme" class="form-select">
+                          <option value="auto_adaptive" {% if button_theme == 'auto_adaptive' %}selected{% endif %}>Auto-Adaptive (Matches Dark Top Bar or Light Header)</option>
+                          <option value="dark_navy" {% if button_theme == 'dark_navy' %}selected{% endif %}>Dark Navy Pill (#0B254E / White Text)</option>
+                          <option value="light_clean" {% if button_theme == 'light_clean' %}selected{% endif %}>Crisp Light Pill (#FFFFFF / Dark Slate Text)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold">{{ entry_show_search }}</label>
+                      <div class="col-sm-8">
+                        <div class="form-check form-switch">
+                          <input type="hidden" name="module_flexext_google_translate_oc4_show_search" value="0"/>
+                          <input type="checkbox" name="module_flexext_google_translate_oc4_show_search" value="1" class="form-check-input" {% if show_search %}checked{% endif %}/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold">{{ entry_show_native }}</label>
+                      <div class="col-sm-8">
+                        <div class="form-check form-switch">
+                          <input type="hidden" name="module_flexext_google_translate_oc4_show_native" value="0"/>
+                          <input type="checkbox" name="module_flexext_google_translate_oc4_show_native" value="1" class="form-check-input" {% if show_native %}checked{% endif %}/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold">{{ entry_auto_restore }}</label>
+                      <div class="col-sm-8">
+                        <div class="form-check form-switch">
+                          <input type="hidden" name="module_flexext_google_translate_oc4_auto_restore" value="0"/>
+                          <input type="checkbox" name="module_flexext_google_translate_oc4_auto_restore" value="1" class="form-check-input" {% if auto_restore %}checked{% endif %}/>
+                        </div>
+                        <div class="form-text">Keeps the visitor's chosen translation active across pages via cookie while keeping initial load for default-language visitors at 0 external requests.</div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-2 align-items-center">
+                      <label class="col-sm-4 col-form-label fw-semibold">{{ entry_hide_google_bar }}</label>
+                      <div class="col-sm-8">
+                        <div class="form-check form-switch">
+                          <input type="hidden" name="module_flexext_google_translate_oc4_hide_google_bar" value="0"/>
+                          <input type="checkbox" name="module_flexext_google_translate_oc4_hide_google_bar" value="1" class="form-check-input" {% if hide_google_bar %}checked{% endif %}/>
+                        </div>
+                        <div class="form-text">Hides the default Google Translate top iframe banner and hover popups for a clean native look.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column: Live Variant Preview & Zero-Lag Summary -->
+                <div class="col-lg-5">
+                  <div class="p-3 rounded border flx-panel-box mb-3">
+                    <h5 class="fw-bold mb-2"><i class="fa-solid fa-eye text-primary me-2"></i>Live Top-Bar Preview</h5>
+                    <p class="small flx-muted-text mb-3">Preview of how the switcher renders in the top navigation bar:</p>
+
+                    <div class="p-3 rounded-3 mb-3 d-flex align-items-center justify-content-between" style="background: #071936; color: #ffffff; border: 1px solid #1e293b;">
+                      <span class="small" style="color: #94a3b8;">$ Currency ▾</span>
+                      <div id="flx-admin-live-preview" class="d-flex align-items-center gap-2">
+                        <span class="badge px-2 py-1 d-inline-flex align-items-center gap-1" style="background: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.22); font-size: 0.78rem;">
+                          <i class="fa-solid fa-earth-americas text-info"></i> EN <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i>
+                        </span>
+                      </div>
+                      <span class="small" style="color: #94a3b8;"><i class="fa-regular fa-user me-1"></i>My Account</span>
+                    </div>
+
+                    <div class="p-3 rounded border flx-sub-box">
+                      <div class="fw-bold small mb-2"><i class="fa-solid fa-gauge-high text-success me-1"></i> Why Zero-Lag On-Demand Loading Matters:</div>
+                      <ul class="small mb-0 ps-3 flx-muted-text">
+                        <li class="mb-1"><strong>Standard Google Translate widgets</strong> load ~280 KB of blocking JavaScript and extra fonts on every single page view, dropping Google PageSpeed scores by 12–25 points.</li>
+                        <li class="mb-1"><strong>FlexExt Zero-Lag Engine</strong> loads <strong>0 bytes</strong> from <code>translate.google.com</code> on initial visit.</li>
+                        <li>The Google script is fetched asynchronously <strong>only when the user clicks the language selector</strong> (or if they already have an active translation cookie).</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {% if not license_info.valid %}</fieldset>{% endif %}
+            </div>
+
+            <!-- TAB 2: LANGUAGES & TOP BUYER COUNTRIES -->
+            <div class="tab-pane fade" id="tab-languages" role="tabpanel">
+              {% if not license_info.valid %}<fieldset disabled style="opacity: 0.45; filter: grayscale(0.6); pointer-events: none; user-select: none;">{% endif %}
+
+              <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 p-3 rounded border flx-panel-box">
+                <div>
+                  <h5 class="fw-bold mb-1"><i class="fa-solid fa-globe text-primary me-2"></i>Target Languages Selection</h5>
+                  <p class="small flx-muted-text mb-0">Languages marked with <span class="badge bg-warning text-dark fw-bold">★ Top Buyer</span> represent the highest-converting countries purchasing OpenCart, WordPress &amp; Joomla extensions.</p>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                  <button type="button" class="btn btn-sm btn-primary fw-bold" onclick="flxSelectLangPreset('top')">
+                    <i class="fa-solid fa-star me-1"></i> Select Top Buyer Countries ({{ top_buyer_codes|length }})
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="flxSelectLangPreset('all')">
+                    <i class="fa-solid fa-check-double me-1"></i> Select All ({{ language_catalog|length }})
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="flxSelectLangPreset('none')">
+                    <i class="fa-solid fa-xmark me-1"></i> Deselect All
+                  </button>
+                </div>
+              </div>
+
+              <div class="row g-2">
+                {% for code, info in language_catalog %}
+                  {% set is_checked = code in selected_languages %}
+                  <div class="col-md-4 col-lg-3">
+                    <label class="d-flex align-items-center justify-content-between p-2 rounded border flx-lang-card h-100" style="cursor: pointer;">
+                      <div class="d-flex align-items-center gap-2">
+                        <input type="checkbox"
+                               name="module_flexext_google_translate_oc4_languages[]"
+                               value="{{ code }}"
+                               class="form-check-input m-0 flx-lang-checkbox"
+                               data-top-buyer="{{ info.top_buyer ? '1' : '0' }}"
+                               {% if is_checked %}checked{% endif %}
+                               onchange="flxUpdateSelectedCount()"/>
+                        <div>
+                          <div class="fw-bold small">{{ info.name_en }} <span class="flx-muted-text">({{ info.iso }})</span></div>
+                          <div class="small flx-muted-text" style="font-size: 0.74rem;">{{ info.name_native }} &bull; {{ info.region }}</div>
+                        </div>
+                      </div>
+                      {% if info.top_buyer %}
+                        <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.68rem;">★ Top Buyer</span>
+                      {% endif %}
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+
+              {% if not license_info.valid %}</fieldset>{% endif %}
+            </div>
+
+            <!-- TAB 3: LICENSE & EDITION -->
+            <div class="tab-pane fade {% if not license_info.valid %}show active{% endif %}" id="tab-license" role="tabpanel">
+              <div class="p-4 rounded border flx-panel-box" style="max-width: 760px;">
+                <h5 class="fw-bold mb-2"><i class="fa-solid fa-key text-primary me-2"></i>License / Free Community Key Activation</h5>
+                <p class="small flx-muted-text mb-3">
+                  This extension is available for free in the FlexExt Store. Use the Free Community Key <code>FLX-FREE-COMMUNITY-2026</code> (or your commercial license key issued at checkout) to unlock all settings.
+                </p>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold" for="input-license-key">{{ entry_license_key }}</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i></span>
+                    <input type="text" name="module_flexext_google_translate_oc4_license_key" value="{{ license_key }}" id="input-license-key" class="form-control font-monospace" placeholder="FLX-FREE-COMMUNITY-2026"/>
+                    <button type="submit" class="btn btn-primary fw-bold">
+                      <i class="fa-solid fa-check me-1"></i> Verify &amp; Save Key
+                    </button>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded border flx-sub-box d-flex align-items-center justify-content-between flex-wrap gap-2">
+                  <div>
+                    <div class="small fw-bold">Current License Status:
+                      <span class="badge {% if license_info.valid %}bg-success{% else %}bg-danger{% endif %} ms-1">{{ license_info.status|upper }}</span>
+                    </div>
+                    <div class="small flx-muted-text mt-1">{{ license_info.message }}</div>
+                  </div>
+                  {% if is_demo_host %}
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.getElementById('input-license-key').value='FLX-DEMO-VALID-KEY-2026';">
+                      Fill Demo Sandbox Key
+                    </button>
+                  {% else %}
+                    <button type="button" class="btn btn-sm btn-outline-success" onclick="document.getElementById('input-license-key').value='FLX-FREE-COMMUNITY-2026';">
+                      Fill Free Community Key
+                    </button>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.flx-gt-admin {
+  --flx-bg: #ffffff;
+  --flx-sub-bg: #f8fafc;
+  --flx-text: #0f172a;
+  --flx-muted: #475569;
+  --flx-border: #cbd5e1;
+}
+[data-bs-theme="dark"] .flx-gt-admin,
+.dark .flx-gt-admin {
+  --flx-bg: #1e293b;
+  --flx-sub-bg: #0f172a;
+  --flx-text: #f8fafc;
+  --flx-muted: #cbd5e1;
+  --flx-border: #334155;
+}
+.flx-gt-admin .flx-panel-box {
+  background-color: var(--flx-bg) !important;
+  color: var(--flx-text) !important;
+  border-color: var(--flx-border) !important;
+}
+.flx-gt-admin .flx-sub-box,
+.flx-gt-admin .flx-lang-card {
+  background-color: var(--flx-sub-bg) !important;
+  color: var(--flx-text) !important;
+  border-color: var(--flx-border) !important;
+}
+.flx-gt-admin .flx-muted-text {
+  color: var(--flx-muted) !important;
+}
+.flx-gt-admin .flx-lang-card:hover {
+  border-color: #2563eb !important;
+}
+</style>
+
+<script type="text/javascript">
+function flxSwitchAdminTab(targetSelector) {
+  var tabPanes = document.querySelectorAll('#flx-gt-tabs ~ .tab-content > .tab-pane');
+  tabPanes.forEach(function(pane) {
+    pane.classList.remove('show', 'active');
+  });
+  var targetPane = document.querySelector(targetSelector);
+  if (targetPane) {
+    targetPane.classList.add('show', 'active');
+  }
+  var navBtns = document.querySelectorAll('#flx-gt-tabs .nav-link');
+  navBtns.forEach(function(btn) {
+    if (btn.getAttribute('data-bs-target') === targetSelector) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+function flxToggleCustomSelector(val) {
+  var group = document.getElementById('flx-custom-selector-group');
+  if (group) {
+    group.style.display = (val === 'custom_selector') ? 'block' : 'none';
+  }
+}
+
+function flxSelectLangPreset(mode) {
+  var boxes = document.querySelectorAll('.flx-lang-checkbox');
+  boxes.forEach(function(cb) {
+    if (mode === 'all') {
+      cb.checked = true;
+    } else if (mode === 'none') {
+      cb.checked = (cb.value === 'en');
+    } else if (mode === 'top') {
+      cb.checked = (cb.getAttribute('data-top-buyer') === '1' || cb.value === 'en');
+    }
+  });
+  flxUpdateSelectedCount();
+}
+
+function flxUpdateSelectedCount() {
+  var checked = document.querySelectorAll('.flx-lang-checkbox:checked').length;
+  var badge = document.getElementById('flx-selected-lang-count');
+  if (badge) badge.textContent = checked;
+}
+
+function flxUpdateVariantPreview() {
+  var sel = document.getElementById('input-style-variant');
+  var preview = document.getElementById('flx-admin-live-preview');
+  if (!sel || !preview) return;
+  var v = sel.value;
+  if (v === 'dropdown_flag_code') {
+    preview.innerHTML = '<span class="badge px-2 py-1 d-inline-flex align-items-center gap-1" style="background: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.22); font-size: 0.78rem;"><span style="display:inline-block;width:14px;height:10px;background:#1d4ed8;border-radius:2px;"></span> EN <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i></span>';
+  } else if (v === 'dropdown_flag_name') {
+    preview.innerHTML = '<span class="badge px-2 py-1 d-inline-flex align-items-center gap-1" style="background: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.22); font-size: 0.78rem;"><span style="display:inline-block;width:14px;height:10px;background:#1d4ed8;border-radius:2px;"></span> English <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i></span>';
+  } else if (v === 'dropdown_globe_text') {
+    preview.innerHTML = '<span class="badge px-2 py-1 d-inline-flex align-items-center gap-1" style="background: rgba(255,255,255,0.12); color: #ffffff; border: 1px solid rgba(255,255,255,0.22); font-size: 0.78rem;"><i class="fa-solid fa-globe text-info"></i> Translate <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i></span>';
+  } else if (v === 'inline_flags') {
+    preview.innerHTML = '<span class="d-inline-flex align-items-center gap-1"><span class="badge bg-primary">EN</span><span class="badge bg-secondary">DE</span><span class="badge bg-secondary">PL</span><span class="badge bg-secondary">ES</span><span class="badge bg-dark border">+18 ▾</span></span>';
+  } else {
+    preview.innerHTML = '<span class="d-inline-flex align-items-center gap-1"><span class="badge bg-primary">🇬🇧 EN</span><span class="badge bg-secondary">🇩🇪 DE</span><span class="badge bg-secondary">🇵🇱 PL</span><span class="badge bg-dark border">+More ▾</span></span>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  flxUpdateVariantPreview();
+  var form = document.getElementById('form-google-translate');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData(form);
+      fetch(form.getAttribute('action'), {
+        method: 'POST',
+        body: formData
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(json) {
+        var box = document.getElementById('flx-gt-alert-box');
+        if (json.error) {
+          if (box) {
+            box.innerHTML = '<div class="alert alert-danger alert-dismissible fade show"><i class="fa-solid fa-circle-exclamation me-2"></i>' + json.error + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
+          }
+          if (json.reload) {
+            setTimeout(function() { window.location.reload(); }, 1200);
+          }
+        } else if (json.success) {
+          if (box) {
+            box.innerHTML = '<div class="alert alert-success alert-dismissible fade show"><i class="fa-solid fa-circle-check me-2"></i>' + json.success + '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
+          }
+          if (json.reload) {
+            setTimeout(function() { window.location.reload(); }, 700);
+          }
+        }
+      });
+    });
+  }
+});
+</script>
+{{ footer }}

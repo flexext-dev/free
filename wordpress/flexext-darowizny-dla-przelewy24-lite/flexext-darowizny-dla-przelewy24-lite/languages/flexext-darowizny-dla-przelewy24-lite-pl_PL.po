@@ -1,0 +1,196 @@
+# Translation of Plugins - FlexExt Darowizny dla Przelewy24 Lite - Stable (latest release) in Polish
+# This file is distributed under the same license as the Plugins - FlexExt Darowizny dla Przelewy24 Lite - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2026-11-02 09:38:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/4.1.0\n"
+"Language: pl\n"
+"Project-Id-Version: Plugins - FlexExt Darowizny dla Przelewy24 Lite - Stable (latest release)\n"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:415
+msgid "Przelewy24 Secure"
+msgstr "Bezpieczna płatność Przelewy24"
+
+#. translators: %s: donation amount in PLN
+#: flexext-darowizny-dla-przelewy24-lite.php:404
+msgid "Donate %s PLN"
+msgstr "Wpłać darowiznę %s PLN"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:400
+msgid "Choose an amount or enter your own."
+msgstr "Wybierz kwotę darowizny."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:376
+msgid "Connection error. Please try again."
+msgstr "Błąd połączenia. Spróbuj ponownie."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:375
+msgid "Payment could not be started."
+msgstr "Nie udało się rozpocząć płatności."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:342
+msgid "Transaction registration failed."
+msgstr "Rejestracja transakcji w Przelewy24 nie powiodła się."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:289
+msgid "Invalid amount selection."
+msgstr "Wybrano nieprawidłową kwotę darowizny."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:282
+msgid "Missing Przelewy24 configuration. Complete all fields in FlexExt Lite settings."
+msgstr "Brak pełnej konfiguracji Przelewy24. Uzupełnij wszystkie pola w ustawieniach FlexExt Lite."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:278
+msgid "Widget is disabled."
+msgstr "Widżet darowizn jest wyłączony."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:241
+msgid "Save settings"
+msgstr "Zapisz ustawienia"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:234
+msgid "Success URL"
+msgstr "Adres URL po udanej wpłacie (Success URL)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:228
+msgid "Description"
+msgstr "Tytuł przelewu (opis transakcji)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:222
+msgid "Amount 3 (PLN)"
+msgstr "Kwota 3 (PLN)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:218
+msgid "Amount 2 (PLN)"
+msgstr "Kwota 2 (PLN)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:214
+msgid "Amount 1 (PLN)"
+msgstr "Kwota 1 (PLN)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:211
+msgid "Donation amounts (PLN)"
+msgstr "Kwoty darowizn (PLN)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:205
+msgid "Title"
+msgstr "Tytuł widżetu"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:201
+msgid "Required by Przelewy24 for each transaction."
+msgstr "Wymagany przez Przelewy24 dla każdej transakcji."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:198
+msgid "Payment email"
+msgstr "Adres e-mail płatności"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:194
+msgid "Also called the API key in the Przelewy24 panel."
+msgstr "W panelu Przelewy24 oznaczany również jako Klucz do API."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:191
+msgid "Report key"
+msgstr "Klucz do raportów (Report Key)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:184
+msgid "CRC key"
+msgstr "Klucz do CRC (CRC Key)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:180
+#: flexext-darowizny-dla-przelewy24-lite.php:187
+msgid "Found in your Przelewy24 panel."
+msgstr "Znajdziesz w swoim panelu Przelewy24."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:177
+msgid "Merchant ID"
+msgstr "ID Sprzedawcy (Merchant ID)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:172
+msgid "Use Przelewy24 sandbox environment for testing"
+msgstr "Używaj środowiska testowego Przelewy24 Sandbox do testowania płatności"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:168
+msgid "Sandbox mode"
+msgstr "Tryb testowy (Sandbox)"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:163
+msgid "Enable the donation widget"
+msgstr "Aktywuj widżet darowizn na stronie"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:159
+msgid "Enable"
+msgstr "Włącz widżet"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:151
+msgid "Upgrade to FlexExt PRO"
+msgstr "Przejdź na FlexExt PRO"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:150
+msgid "Want custom amounts, multiple currencies, your own logo and colors, a floating widget, and a public donor list?"
+msgstr "Potrzebujesz własnych kwot, wielu walut, własnego logo i kolorów, pływającego widżetu oraz publicznej listy darczyńców?"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:146
+msgid "You can place the shortcode on multiple pages; it will always use the settings configured here."
+msgstr "Możesz umieścić ten shortcode na wielu stronach — zawsze użyje ustawień skonfigurowanych poniżej."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:144
+msgid "Publish or update the page. The widget will appear where you placed the shortcode."
+msgstr "Opublikuj lub zaktualizuj stronę. Widżet pojawi się dokładnie tam, gdzie wstawiono shortcode."
+
+#. translators: %s: shortcode tag [flexext_lite]
+#: flexext-darowizny-dla-przelewy24-lite.php:141
+msgid "Insert the shortcode %s using a Shortcode block or directly in the classic editor."
+msgstr "Wstaw shortcode %s za pomocą bloku Shortcode lub bezpośrednio w edytorze klasycznym."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:137
+msgid "Edit any page or post where you want the donation buttons to appear."
+msgstr "Edytuj dowolną stronę lub wpis, na którym mają wyświetlać się przyciski darowizny."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:136
+msgid "Fill in the Przelewy24 credentials below and enable the widget."
+msgstr "Uzupełnij poniżej dane dostępowe Przelewy24 i włącz widżet."
+
+#: flexext-darowizny-dla-przelewy24-lite.php:134
+msgid "How to add the widget to your site"
+msgstr "Jak dodać widżet darowizn na swoją stronę"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:63
+#: flexext-darowizny-dla-przelewy24-lite.php:64
+msgid "P24 Darowizny"
+msgstr "P24 Darowizny"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:47
+msgid "Wpłać darowiznę"
+msgstr "Wpłać darowiznę"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:44
+msgid "Darowizna na wsparcie projektu"
+msgstr "Darowizna na wsparcie projektu"
+
+#: flexext-darowizny-dla-przelewy24-lite.php:40
+msgid "Wsparcie projektu (Darowizna)"
+msgstr "Wsparcie projektu (Darowizna)"
+
+#. Author URI of the plugin
+#: flexext-darowizny-dla-przelewy24-lite.php
+msgid "https://flexext.dev"
+msgstr "https://flexext.dev"
+
+#. Author of the plugin
+#: flexext-darowizny-dla-przelewy24-lite.php
+msgid "FlexExt"
+msgstr "FlexExt"
+
+#. Description of the plugin
+#: flexext-darowizny-dla-przelewy24-lite.php
+msgid "Szybkie i bezpieczne darowizny dla Przelewy24 (BLIK, karty, szybki przelew). Lekki widżet z trzema stałymi kwotami darowizny (PLN) dla fundacji, zbiórek i twórców."
+msgstr "Szybkie i bezpieczne darowizny dla Przelewy24 (BLIK, karty, szybki przelew). Lekki widżet z trzema stałymi kwotami darowizny (PLN) dla fundacji, zbiórek i twórców."
+
+#. Plugin Name of the plugin
+#: flexext-darowizny-dla-przelewy24-lite.php
+msgid "FlexExt Darowizny dla Przelewy24 Lite"
+msgstr "FlexExt Darowizny dla Przelewy24 Lite"

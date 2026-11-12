@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" method="upgrade">
+    <name>Content - FlexExt Articles Hub</name>
+    <author>Visacom / FlexExt</author>
+    <creationDate>2026-11</creationDate>
+    <copyright>(C) 2026 Visacom / FlexExt. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>contact@flexext.dev</authorEmail>
+    <authorUrl>https://flexext.dev</authorUrl>
+    <version>1.0.2</version>
+    <description>PLG_CONTENT_FLEXEXT_ARTICLES_FREE_XML_DESC</description>
+    <namespace path="src">Visacom\Plugin\Content\FlexextArticlesFree</namespace>
+
+    <files>
+        <folder plugin="flexext_articles_free">services</folder>
+        <folder>src</folder>
+        <folder>field</folder>
+        <folder>language</folder>
+        <folder>media</folder>
+        <filename>LICENSE.txt</filename>
+        <filename>README.md</filename>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_content_flexext_articles_free.ini</language>
+        <language tag="en-GB">en-GB/plg_content_flexext_articles_free.sys.ini</language>
+        <language tag="pl-PL">pl-PL/plg_content_flexext_articles_free.ini</language>
+        <language tag="pl-PL">pl-PL/plg_content_flexext_articles_free.sys.ini</language>
+    </languages>
+
+    <updateservers>
+        <server type="extension" priority="1" name="Content - FlexExt Articles Hub Updates">https://flexext.dev/updates/plg_content_flexext_articles_free.xml</server>
+    </updateservers>
+
+    <config>
+        <fields name="params" addfieldpath="/plugins/content/flexext_articles_free/field">
+            <fieldset name="dashboard" label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_TAB_DASHBOARD">
+                <field
+                    name="dashboard_view"
+                    type="articlesfreedashboard"
+                    label=""
+                    hiddenLabel="true"
+                />
+            </fieldset>
+
+            <fieldset name="basic" label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_TAB_SETTINGS">
+                <field
+                    name="enable_reading_time"
+                    type="radio"
+                    label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_READING_TIME"
+                    layout="joomla.form.field.radio.switcher"
+                    default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+
+                <field
+                    name="words_per_minute"
+                    type="number"
+                    label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_WPM"
+                    default="200"
+                    min="100"
+                    max="400"
+                />
+
+                <field
+                    name="enable_progress_bar"
+                    type="radio"
+                    label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_PROGRESS_BAR"
+                    layout="joomla.form.field.radio.switcher"
+                    default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+
+                <field
+                    name="progress_bar_color"
+                    type="color"
+                    label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_PROGRESS_COLOR"
+                    default="#1980F7"
+                />
+
+                <field
+                    name="enable_social_share"
+                    type="radio"
+                    label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_SOCIAL_SHARE"
+                    layout="joomla.form.field.radio.switcher"
+                    default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+
+                <field
+                    name="enable_author_box"
+                    type="radio"
+                    label="PLG_CONTENT_FLEXEXT_ARTICLES_FREE_AUTHOR_BOX"
+                    layout="joomla.form.field.radio.switcher"
+                    default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

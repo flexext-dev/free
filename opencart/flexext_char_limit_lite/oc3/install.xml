@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>FlexExt Option Character Limit (Free Edition)</name>
+  <code>flexext_char_limit_lite_oc3</code>
+  <version>1.0.0</version>
+  <author>FlexExt</author>
+  <link>https://flexext.dev/flexext-character-limit-pro-products-options?utm_source=opencart_marketplace&amp;utm_medium=free_lite_oc3&amp;utm_campaign=char_limit_lite</link>
+  <file path="catalog/controller/product/product.php">
+    <operation>
+      <search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
+      <add position="before"><![CDATA[
+        $data['module_char_limit_lite_status'] = $this->config->get('module_char_limit_lite_status') !== null ? (int)$this->config->get('module_char_limit_lite_status') : 1;
+        $data['module_char_limit_lite_default_limit'] = (int)($this->config->get('module_char_limit_lite_default_limit') ?: 100);
+      ]]></add>
+    </operation>
+  </file>
+  <file path="catalog/view/theme/*/template/product/product.twig">
+    <operation>
+      <search><![CDATA[{{ footer }}]]></search>
+      <add position="before"><![CDATA[
+      {% if module_char_limit_lite_status is not defined or module_char_limit_lite_status %}
+      <!-- FlexExt Option Character Limit Lite -->
+      <style>
+      .flexext-char-limit-badge {
+          display: inline-block;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 2px 8px;
+          border-radius: 4px;
+          background: #f1f5f9;
+          color: #475569;
+          border: 1px solid #cbd5e1;
+          margin-top: 5px;
+          transition: all 0.2s ease;
+      }
+      .flexext-char-limit-badge.danger {
+          background: #fee2e2 !important;
+          color: #991b1b !important;
+          border-color: #fca5a5 !important;
+      }
+      </style>
+      <script type="text/javascript">
+      $(document).ready(function() {
+          var maxLimit = {{ module_char_limit_lite_default_limit|default(100) }};
+          $('input[type="text"][name^="option["], textarea[name^="option["]').each(function() {
+              var $el = $(this);
+              if ($el.data('char-limit-lite-init')) return;
+              $el.data('char-limit-lite-init', true);
+              $el.attr('maxlength', maxLimit);
+
+              var $badge = $('<div class="flexext-char-limit-badge"><span class="rem">' + maxLimit + '</span> characters remaining (max ' + maxLimit + ')</div>');
+              $el.after($badge);
+
+              function update() {
+                  var len = $el.val().length;
+                  var rem = Math.max(0, maxLimit - len);
+                  $badge.find('.rem').text(rem);
+                  if (rem <= 10) {
+                      $badge.addClass('danger');
+                  } else {
+                      $badge.removeClass('danger');
+                  }
+              }
+              $el.on('input propertychange', update);
+              update();
+          });
+      });
+      </script>
+      <!-- /FlexExt Option Character Limit Lite -->
+      {% endif %}
+      ]]></add>
+    </operation>
+  </file>
+  <file path="catalog/controller/checkout/cart.php">
+    <operation error="skip">
+      <search><![CDATA[if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {]]></search>
+      <add position="after"><![CDATA[
+				} elseif (in_array($product_option['type'], array('text', 'textarea')) && isset($option[$product_option['product_option_id']])) {
+					$lite_status = $this->config->get('module_char_limit_lite_status') !== null ? (int)$this->config->get('module_char_limit_lite_status') : 1;
+					if ($lite_status) {
+						$lite_max = (int)($this->config->get('module_char_limit_lite_default_limit') ?: 100);
+						$opt_val = trim((string)$option[$product_option['product_option_id']]);
+						if (mb_strlen($opt_val, 'UTF-8') > $lite_max) {
+							$json['error']['option'][$product_option['product_option_id']] = sprintf('Maximum length for %s is %d characters.', $product_option['name'], $lite_max);
+						}
+					}
+      ]]></add>
+    </operation>
+  </file>
+</modification>

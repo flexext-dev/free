@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Product Custom Tabs Lite: 1 Custom Tab (Free)</name>
+    <code>flexext_product_tabs_lite_oc3</code>
+    <version>1.0.0</version>
+    <author>FlexExt</author>
+    <link>https://flexext.dev/?utm_source=opencart_marketplace&amp;utm_medium=free_lite_oc3&amp;utm_campaign=product_tabs_lite</link>
+
+    <!-- 1. Catalog Product Controller -->
+    <file path="catalog/controller/product/product.php">
+        <operation>
+            <search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
+            <add position="before"><![CDATA[
+            // FlexExt Product Custom Tabs Lite (Free Edition)
+            $data['custom_tab_lite'] = null;
+            if ($this->config->get('module_product_tabs_lite_status')) {
+                $lite_lang_id = (int)$this->config->get('config_language_id');
+                $lite_descs = $this->config->get('module_product_tabs_lite_description');
+                $lite_title = '';
+                $lite_desc = '';
+
+                if (!empty($lite_descs[$lite_lang_id]['title'])) {
+                    $lite_title = $lite_descs[$lite_lang_id]['title'];
+                    $lite_desc = html_entity_decode($lite_descs[$lite_lang_id]['description'] ?? '', ENT_QUOTES, 'UTF-8');
+                } elseif (is_array($lite_descs)) {
+                    foreach ($lite_descs as $ld) {
+                        if (!empty($ld['title'])) {
+                            $lite_title = $ld['title'];
+                            $lite_desc = html_entity_decode($ld['description'] ?? '', ENT_QUOTES, 'UTF-8');
+                            break;
+                        }
+                    }
+                }
+
+                if (!empty($lite_title) || !empty($lite_desc)) {
+                    $data['custom_tab_lite'] = array(
+                        'title'       => $lite_title,
+                        'icon'        => $this->config->get('module_product_tabs_lite_icon') ?: 'fa fa-ruler',
+                        'description' => $lite_desc
+                    );
+                }
+            }
+            ]]></add>
+        </operation>
+    </file>
+
+    <!-- 2. Catalog Product Twig Template -->
+    <file path="catalog/view/theme/*/template/product/product.twig">
+        <operation>
+            <search><![CDATA[{% if review_status %}]]></search>
+            <add position="before"><![CDATA[
+            {% if custom_tab_lite %}
+            <li><a href="#tab-custom-lite" data-toggle="tab">{% if custom_tab_lite.icon %}<i class="{{ custom_tab_lite.icon }}"></i> {% endif %}{{ custom_tab_lite.title }}</a></li>
+            {% endif %}
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[{% if review_status %}
+            <div class="tab-pane" id="tab-review">]]></search>
+            <add position="before"><![CDATA[
+            {% if custom_tab_lite %}
+            <div class="tab-pane" id="tab-custom-lite"><div style="background:#fff; border:1px solid #e2e8f0; border-radius:6px; padding:18px; margin-bottom:15px;">{{ custom_tab_lite.description|raw }}</div></div>
+            {% endif %}
+            ]]></add>
+        </operation>
+    </file>
+
+    <!-- 3. Admin Product Form Custom Tab Preview & Pro Upgrade Notice -->
+    <file path="admin/view/template/catalog/product_form.twig">
+        <operation error="skip">
+            <search><![CDATA[<li><a href="#tab-design" data-toggle="tab">]]></search>
+            <add position="before"><![CDATA[
+            <li><a href="#tab-custom-tab-lite" data-toggle="tab"><i class="fa fa-folder-open text-primary"></i> Custom Tab <span class="label label-success" style="font-size:10px;">Lite</span></a></li>
+            ]]></add>
+        </operation>
+        <operation error="skip">
+            <search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
+            <add position="before"><![CDATA[
+            <div class="tab-pane" id="tab-custom-tab-lite">
+              <div class="panel panel-default" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 8px; border: none; margin-bottom: 20px;">
+                <div class="panel-body" style="padding: 18px;">
+                  <div class="row" style="display:flex; align-items:center; flex-wrap:wrap;">
+                    <div class="col-sm-8">
+                      <span class="label label-warning" style="font-size: 10px; font-weight: bold;">★ UNLOCK UNLIMITED TABS (PRO)</span>
+                      <h4 style="color: #ffffff; margin-top: 8px; margin-bottom: 5px; font-weight: bold; font-size:16px;">Chcesz nieograniczoną liczbę zakładek, przypisywanie do kategorii, reguły klientów i wideo?</h4>
+                      <p style="color: #94a3b8; margin: 0; font-size: 12px;">Pobierz wersję PRO na <strong>FlexExt.dev</strong> (10% rabatu z kodem promocyjnym <strong>OPENCART10</strong>).</p>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                      <a href="https://flexext.dev/?utm_source=opencart_marketplace&amp;utm_medium=free_lite_product_tab_oc3&amp;utm_campaign=product_tabs_lite" target="_blank" class="btn btn-info btn-sm" style="background:#0284c7; border:none; font-weight:bold; margin-top:8px;">Pobierz PRO (10% OFF Kod: OPENCART10) &rarr;</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert alert-info">
+                <i class="fa fa-info-circle"></i> <strong>Product Custom Tabs Lite:</strong> Storewide custom tab (e.g. Size Guide / Shipping Info) is active. To edit global content, open <a href="index.php?route=extension/module/flexext_product_tabs_lite&user_token={{ user_token }}" target="_blank" class="alert-link">Module Settings</a>. To assign different tabs per product or category, upgrade to the PRO suite.
+              </div>
+            </div>
+            ]]></add>
+        </operation>
+    </file>
+</modification>

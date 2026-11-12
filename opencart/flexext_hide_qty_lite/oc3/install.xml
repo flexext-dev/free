@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>FlexExt Hide Quantity Field (Free Edition)</name>
+  <code>flexext_hide_qty_lite_oc3</code>
+  <version>1.0.0</version>
+  <author>FlexExt</author>
+  <link>https://flexext.dev/hide-quantity-field-for-opencart?utm_source=opencart_marketplace&amp;utm_medium=free_lite_oc3&amp;utm_campaign=hide_qty_lite</link>
+  <file path="catalog/controller/product/product.php">
+    <operation>
+      <search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
+      <add position="before"><![CDATA[
+        $data['module_hide_qty_lite_status'] = $this->config->get('module_hide_qty_lite_status') !== null ? (int)$this->config->get('module_hide_qty_lite_status') : 1;
+        $data['module_hide_qty_lite_full_width'] = $this->config->get('module_hide_qty_lite_full_width') !== null ? (int)$this->config->get('module_hide_qty_lite_full_width') : 1;
+      ]]></add>
+    </operation>
+  </file>
+  <file path="catalog/view/theme/*/template/product/product.twig">
+    <operation error="skip">
+      <search><![CDATA[<label class="control-label" for="input-quantity">{{ entry_qty }}</label>]]></search>
+      <add position="replace"><![CDATA[{% if module_hide_qty_lite_status is defined and not module_hide_qty_lite_status %}<label class="control-label" for="input-quantity">{{ entry_qty }}</label>{% endif %}]]></add>
+    </operation>
+    <operation error="skip">
+      <search><![CDATA[<input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />]]></search>
+      <add position="replace"><![CDATA[{% if module_hide_qty_lite_status is not defined or module_hide_qty_lite_status %}<input type="hidden" name="quantity" value="{{ minimum }}" id="input-quantity" />{% else %}<input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />{% endif %}]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[{{ footer }}]]></search>
+      <add position="before"><![CDATA[
+      {% if module_hide_qty_lite_status is not defined or module_hide_qty_lite_status %}
+      <!-- FlexExt Hide Quantity Field Lite -->
+      <style>
+      #input-quantity:not([type="hidden"]),
+      input[name="quantity"]:not([type="hidden"]),
+      label[for="input-quantity"] {
+          display: none !important;
+      }
+      #button-cart {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          {% if module_hide_qty_lite_full_width is not defined or module_hide_qty_lite_full_width %}
+          width: 100% !important;
+          border-radius: 6px !important;
+          {% endif %}
+      }
+      </style>
+      <script type="text/javascript">
+      $(document).ready(function() {
+          var $qty = $('#input-quantity, input[name="quantity"]');
+          if ($qty.attr('type') !== 'hidden') {
+              $qty.hide();
+              $('label[for="input-quantity"]').hide();
+          }
+          $('.qty-stepper, .btn-number, .quantity-stepper').hide();
+          $('#button-cart').prev('br').hide();
+          var $btn = $('#button-cart');
+          if ($btn.length) {
+              $btn.show().css({'display': 'block', 'visibility': 'visible', 'opacity': '1'});
+              {% if module_hide_qty_lite_full_width is not defined or module_hide_qty_lite_full_width %}
+              $btn.css({'width': '100%', 'border-radius': '6px'});
+              {% endif %}
+          }
+      });
+      </script>
+      <!-- /FlexExt Hide Quantity Field Lite -->
+      {% endif %}
+      ]]></add>
+    </operation>
+  </file>
+</modification>

@@ -1,0 +1,36 @@
+# Copyright (C) 2026 FlexExt Dev
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: FlexExt Company Lookup for GUS 1.0.4\n"
+"Report-Msgid-Bugs-To: https://flexext.dev/\n"
+"Last-Translator: FlexExt Dev <contact@flexext.dev>\n"
+"Language-Team: Polish <contact@flexext.dev>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-02T08:50:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: FlexExt Translation Tool\n"
+"X-Domain: flexext-gus-company-lookup\n"
+
+msgid "Moduł weryfikacji NIP jest obecnie wyłączony."
+msgstr ""
+
+msgid "Proszę podać 10-cyfrowy polski numer NIP."
+msgstr ""
+
+msgid "Nieprawidłowa suma kontrolna polskiego numeru NIP."
+msgstr ""
+
+msgid "Nie odnaleziono podmiotu w rejestrze skarbowym."
+msgstr ""
+
+msgid "Błąd połączenia z serwerem Ministerstwa Finansów: "
+msgstr ""
+
+msgid "Nie znaleziono firmy o podanym numerze NIP w wykazie Ministerstwa Finansów."
+msgstr ""
+
+msgid "NIP / VAT ID:"
+msgstr ""

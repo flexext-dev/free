@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051329"/>
+      <stop offset="50%" stop-color="#091E3D"/>
+      <stop offset="100%" stop-color="#0E2D58"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1980F7" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card with rounded corners and border -->
+  <rect width="256" height="256" rx="46" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="252" height="252" rx="44" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
+
+  <!-- Top FlexExt Brand Header: Symbol + Name -->
+  <g transform="translate(42, 14)">
+    <!-- Symbol -->
+    <g transform="translate(0, 0) scale(0.012)">
+      <path fill="#1980F7" d="M590.09 1296.64l0 -376.24c0,-204.2 165.55,-369.75 369.75,-369.75l931.77 0c21.79,0 39.44,17.65 39.44,39.44 0,162.69 -133.11,290.87 -330.31,290.87l-557.09 0c-49,0 -88.74,39.73 -88.74,88.74l0 80.37c-97.24,12.95 -239.1,30.39 -364.82,246.57z"/>
+      <path fill="#FFFFFF" opacity="0.95" d="M590.09 1595.81c0,-236.64 207.18,-458.49 409.19,-458.49l665.55 0c19.08,0 34.51,15.43 34.51,34.51 0,167.62 -133.11,295.8 -330.31,295.8l-325.38 0c-49,0 -88.74,39.73 -88.74,88.74l0 83.81c0,182.41 -147.9,330.31 -330.31,330.31l-14.79 0c-10.9,0 -19.72,-8.83 -19.72,-19.72l0 -354.96z"/>
+    </g>
+    <!-- Brand Wordmark -->
+    <text x="36" y="21" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="16" fill="#1980F7" letter-spacing="0.5">FLEX<tspan fill="#FFFFFF">EXT</tspan><tspan fill="#94A3B8" font-size="11" font-weight="700">.dev</tspan></text>
+  </g>
+
+  <!-- Center Feature Emblem Container -->
+  <circle cx="128" cy="108" r="44" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(25, 128, 247, 0.35)" stroke-width="2" filter="url(#glow)"/>
+  
+  
+          <!-- Document and Reading Clock -->
+          <rect x="106" y="80" width="38" height="48" rx="6" fill="#FFFFFF"/>
+          <line x1="114" y1="92" x2="136" y2="92" stroke="#091E3D" stroke-width="3" stroke-linecap="round"/>
+          <line x1="114" y1="102" x2="136" y2="102" stroke="#091E3D" stroke-width="3" stroke-linecap="round"/>
+          <line x1="114" y1="112" x2="128" y2="112" stroke="#091E3D" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="138" cy="122" r="15" fill="#1980F7" stroke="#FFFFFF" stroke-width="2"/>
+          <polyline points="138,114 138,122 143,125" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+        
+
+  <!-- Title & Subtitle -->
+  <text x="128" y="180" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="18" fill="#FFFFFF" letter-spacing="0.5">ARTICLES HUB</text>
+  <text x="128" y="199" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="11" fill="#93C5FD" letter-spacing="0.5">READING TIME &amp; SOCIAL</text>
+
+  <!-- Free Edition Badge Pill -->
+  <g transform="translate(128, 226)">
+    <rect x="-62" y="-12" width="124" height="24" rx="12" fill="#10B981"/>
+    <text x="0" y="4" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" letter-spacing="0.5">FREE EDITION</text>
+  </g>
+</svg>

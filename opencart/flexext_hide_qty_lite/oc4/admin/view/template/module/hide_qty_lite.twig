@@ -1,0 +1,79 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save</button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i> Back</a>
+      </div>
+      <h1>{{ heading_title }} <span class="badge bg-success" style="font-size: 0.75rem;">v{{ version }} Free Edition</span></h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div id="alert"></div>
+
+    <!-- PRO Upgrade Banner -->
+    <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 12px;">
+      <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+        <div>
+          <span class="badge bg-warning text-dark fw-bold mb-2">★ UNLOCK COMMERCIAL PRO FEATURES</span>
+          <h4 class="text-white fw-bold mb-1">Need per-category rules, customer group restrictions & single-item cart enforcers?</h4>
+          <p class="text-white-50 mb-0 small">Upgrade to <strong>FlexExt Hide Quantity & Single Item Enforcer PRO</strong> for 1-Click Direct Buy, duplicate cart locks, and multi-version priority support.</p>
+        </div>
+        <div class="text-nowrap">
+          <a href="https://flexext.dev/en-gb/product/hide-quantity-field-for-opencart?utm_source=opencart_marketplace&utm_medium=free_lite_admin&utm_campaign=hide_qty_lite" target="_blank" rel="noopener" class="btn btn-primary px-4 py-2 fw-bold" style="background: #0284c7; border: none; border-radius: 8px;">
+            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Get PRO (10% OFF Code: OPENCART10) &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+      <div class="card-header bg-white py-3">
+        <h5 class="card-title mb-0 fw-bold"><i class="fa-solid fa-sliders text-primary me-2"></i>General Settings</h5>
+      </div>
+      <div class="card-body p-4">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-9">
+              <div class="form-check form-switch form-switch-lg mt-2">
+                <input type="hidden" name="module_hide_qty_lite_status" value="0"/>
+                <input type="checkbox" name="module_hide_qty_lite_status" value="1" id="input-status" class="form-check-input" {% if status %}checked{% endif %}/>
+              </div>
+              <div class="form-text text-muted">Globally hides the quantity stepper (+/-) and quantity input box on all product pages.</div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-full-width">{{ entry_full_width }}</label>
+            <div class="col-sm-9">
+              <div class="form-check form-switch form-switch-lg mt-2">
+                <input type="hidden" name="module_hide_qty_lite_full_width" value="0"/>
+                <input type="checkbox" name="module_hide_qty_lite_full_width" value="1" id="input-full-width" class="form-check-input" {% if full_width %}checked{% endif %}/>
+              </div>
+              <div class="form-text text-muted">Automatically expands the 'Add to Cart' button to 100% width for a prominent, mobile-optimized call to action.</div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-hide-cat">{{ entry_hide_categories }}</label>
+            <div class="col-sm-9">
+              <div class="form-check form-switch form-switch-lg mt-2">
+                <input type="hidden" name="module_hide_qty_lite_hide_categories" value="0"/>
+                <input type="checkbox" name="module_hide_qty_lite_hide_categories" value="1" id="input-hide-cat" class="form-check-input" {% if hide_categories %}checked{% endif %}/>
+              </div>
+              <div class="form-text text-muted">Hides quantity inputs on catalog and category thumbnail cards.</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

@@ -1,0 +1,195 @@
+# Copyright (C) 2026 FlexExt
+msgid ""
+msgstr ""
+"Project-Id-Version: P24 Darowizny / P24 Donations 1.1.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Also called the API key in the Przelewy24 panel."
+msgstr ""
+
+msgid "Amount 1 (PLN)"
+msgstr ""
+
+msgid "Amount 2 (PLN)"
+msgstr ""
+
+msgid "Amount 3 (PLN)"
+msgstr ""
+
+msgid "Available in FlexExt PRO."
+msgstr ""
+
+msgid "Background color"
+msgstr ""
+
+msgid "Bank transfer details"
+msgstr ""
+
+msgid "Bottom right / Bottom left / etc."
+msgstr ""
+
+msgid "Button label"
+msgstr ""
+
+msgid "CRC key"
+msgstr ""
+
+msgid "Choose an amount or enter your own."
+msgstr ""
+
+msgid "Connection error. Please try again."
+msgstr ""
+
+msgid "Currency"
+msgstr ""
+
+msgid "Custom amount field"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Donate now"
+msgstr ""
+
+msgid "Donation"
+msgstr ""
+
+msgid "Donor comment field"
+msgstr ""
+
+msgid "Donor name & email fields"
+msgstr ""
+
+msgid "Edit any page or post where you want the donation buttons to appear."
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Enable the donation widget"
+msgstr ""
+
+msgid "Enter your own Przelewy24 merchant credentials below. They are stored only in this site's database and are sent directly from your server to Przelewy24 — never through flexext.dev or any other third party."
+msgstr ""
+
+msgid "Error URL"
+msgstr ""
+
+msgid "Fill in the Przelewy24 credentials below and enable the widget."
+msgstr ""
+
+msgid "Floating widget position"
+msgstr ""
+
+msgid "Found in your Przelewy24 panel."
+msgstr ""
+
+msgid "Heading color"
+msgstr ""
+
+msgid "Hide \"Powered by\" link"
+msgstr ""
+
+msgid "Hide donor name / amount option"
+msgstr ""
+
+msgid "How to add the widget to your site"
+msgstr ""
+
+msgid "IBAN, account holder name"
+msgstr ""
+
+msgid "Insert the shortcode %s using a Shortcode block or directly in the classic editor."
+msgstr ""
+
+msgid "Invalid amount selection."
+msgstr ""
+
+msgid "Let donors type any amount"
+msgstr ""
+
+msgid "Logo upload"
+msgstr ""
+
+msgid "Maximum amount"
+msgstr ""
+
+msgid "Merchant ID"
+msgstr ""
+
+msgid "Minimum amount"
+msgstr ""
+
+msgid "Missing Przelewy24 configuration. Complete all fields in FlexExt Lite settings."
+msgstr ""
+
+msgid "POS ID (separate from Merchant ID)"
+msgstr ""
+
+msgid "PRO features (preview)"
+msgstr ""
+
+msgid "Payment could not be started."
+msgstr ""
+
+msgid "Payment email"
+msgstr ""
+
+msgid "Public donor list"
+msgstr ""
+
+msgid "Publish or update the page. The widget will appear where you placed the shortcode."
+msgstr ""
+
+msgid "Report key"
+msgstr ""
+
+msgid "Required by Przelewy24 for each transaction."
+msgstr ""
+
+msgid "Sandbox mode"
+msgstr ""
+
+msgid "Save settings"
+msgstr ""
+
+msgid "Shadow style"
+msgstr ""
+
+msgid "Soft / Medium / None"
+msgstr ""
+
+msgid "Subtitle text"
+msgstr ""
+
+msgid "Success URL"
+msgstr ""
+
+msgid "Support our project"
+msgstr ""
+
+msgid "Text color"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Transaction registration failed."
+msgstr ""
+
+msgid "Upgrade to FlexExt PRO"
+msgstr ""
+
+msgid "Use Przelewy24 sandbox environment for testing"
+msgstr ""
+
+msgid "Want custom amounts, multiple currencies, your own logo and colors, a floating widget, and a public donor list?"
+msgstr ""
+
+msgid "Widget is disabled."
+msgstr ""
+
+msgid "You can place the shortcode on multiple pages; it will always use the settings configured here."
+msgstr ""

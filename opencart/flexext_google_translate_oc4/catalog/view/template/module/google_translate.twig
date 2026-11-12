@@ -1,0 +1,765 @@
+<!-- FlexExt Zero-Lag Google Translate & Multi-Language Switcher v1.0.0 -->
+<div id="flx-gt-wrapper"
+     class="flx-gt-wrapper notranslate flx-pos-{{ position }} flx-theme-{{ button_theme }} flx-var-{{ style_variant }}"
+     translate="no"
+     data-source-lang="{{ source_lang }}"
+     data-position="{{ position }}"
+     data-custom-selector="{{ custom_selector|e('html_attr') }}"
+     data-custom-insert="{{ custom_insert|e('html_attr') }}"
+     data-auto-restore="{{ auto_restore }}">
+
+  <div id="google_translate_element" class="d-none" style="display:none !important; width:0; height:0; overflow:hidden;"></div>
+
+  {% if style_variant in ['inline_flags', 'inline_flags_codes'] %}
+    <div class="flx-gt-inline-bar d-inline-flex align-items-center gap-1">
+      {% for lang in languages|slice(0, 6) %}
+        <button type="button"
+                class="flx-gt-inline-btn {% if lang.code == source_lang %}active{% endif %}"
+                data-lang-code="{{ lang.code }}"
+                data-lang-iso="{{ lang.iso }}"
+                data-lang-name="{{ show_native ? lang.name_native : lang.name_en }}"
+                data-lang-flag="{{ lang.flag_svg }}"
+                title="{{ lang.name_en }} ({{ lang.name_native }})"
+                onclick="window.flxSelectLanguage('{{ lang.code }}', this, event)">
+          <img src="{{ lang.flag_svg }}" alt="{{ lang.iso }}" width="16" height="11" class="flx-gt-flag-img"/>
+          {% if style_variant == 'inline_flags_codes' %}
+            <span class="flx-gt-inline-iso">{{ lang.iso }}</span>
+          {% endif %}
+        </button>
+      {% endfor %}
+
+      {% if languages|length > 6 %}
+        <div class="flx-gt-dropdown position-relative d-inline-block">
+          <button type="button"
+                  id="flx-gt-toggle-btn"
+                  class="flx-gt-toggle-btn"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  title="More Languages"
+                  onclick="window.flxToggleGtDropdown(this, event)">
+            <span id="flx-gt-active-label">+{{ languages|length - 6 }}</span>
+            <i class="fa-solid fa-chevron-down flx-gt-caret"></i>
+          </button>
+          <div id="flx-gt-dropdown-menu" class="flx-gt-dropdown-menu">
+            {% if show_search %}
+              <div class="flx-gt-search-wrap">
+                <input type="text" id="flx-gt-search-input" class="flx-gt-search-input" placeholder="Search language..." autocomplete="off" oninput="window.flxFilterGtLanguages(this.value)"/>
+              </div>
+            {% endif %}
+            <div class="flx-gt-lang-grid" id="flx-gt-lang-grid">
+              {% for lang in languages %}
+                <button type="button"
+                        class="flx-gt-lang-item {% if lang.code == source_lang %}active{% endif %}"
+                        data-lang-code="{{ lang.code }}"
+                        data-lang-iso="{{ lang.iso }}"
+                        data-lang-name="{{ show_native ? lang.name_native : lang.name_en }}"
+                        data-lang-search="{{ (lang.name_en ~ ' ' ~ lang.name_native ~ ' ' ~ lang.iso)|lower }}"
+                        data-lang-flag="{{ lang.flag_svg }}"
+                        onclick="window.flxSelectLanguage('{{ lang.code }}', this, event)">
+                  <img src="{{ lang.flag_svg }}" alt="{{ lang.iso }}" width="18" height="12" class="flx-gt-flag-img"/>
+                  <span class="flx-gt-lang-text">
+                    <span class="flx-gt-lang-primary">{{ show_native ? lang.name_native : lang.name_en }}</span>
+                    {% if show_native and lang.name_native != lang.name_en %}
+                      <span class="flx-gt-lang-sub">{{ lang.name_en }}</span>
+                    {% endif %}
+                  </span>
+                  <span class="flx-gt-lang-iso">{{ lang.iso }}</span>
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="flx-gt-dropdown position-relative d-inline-block">
+      <button type="button"
+              id="flx-gt-toggle-btn"
+              class="flx-gt-toggle-btn"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="Translate Page"
+              title="Translate Store ({{ languages|length }} Languages)"
+              onclick="window.flxToggleGtDropdown(this, event)">
+        {% if style_variant == 'dropdown_globe_text' %}
+          <i class="fa-solid fa-earth-americas flx-gt-globe-icon"></i>
+          <img id="flx-gt-active-flag" src="{{ source_info.flag_svg }}" alt="{{ source_info.iso }}" width="16" height="11" class="flx-gt-flag-img d-none"/>
+          <span id="flx-gt-active-label">Translate ({{ source_info.iso }})</span>
+        {% elseif style_variant == 'dropdown_flag_name' %}
+          <img id="flx-gt-active-flag" src="{{ source_info.flag_svg }}" alt="{{ source_info.iso }}" width="16" height="11" class="flx-gt-flag-img"/>
+          <span id="flx-gt-active-label">{{ show_native ? source_info.name_native : source_info.name_en }}</span>
+        {% else %}
+          <img id="flx-gt-active-flag" src="{{ source_info.flag_svg }}" alt="{{ source_info.iso }}" width="16" height="11" class="flx-gt-flag-img"/>
+          <span id="flx-gt-active-label">{{ source_info.iso }}</span>
+        {% endif %}
+        <i class="fa-solid fa-chevron-down flx-gt-caret" id="flx-gt-caret-icon"></i>
+      </button>
+
+      <div id="flx-gt-dropdown-menu" class="flx-gt-dropdown-menu" role="menu">
+        <div class="flx-gt-menu-header">
+          <span><i class="fa-solid fa-language me-1"></i> Instant Page Translation</span>
+          <span class="flx-gt-zero-badge">Google Translate</span>
+        </div>
+
+        {% if show_search %}
+          <div class="flx-gt-search-wrap">
+            <input type="text"
+                   id="flx-gt-search-input"
+                   class="flx-gt-search-input"
+                   placeholder="Filter language (e.g. Deutsch, Polski, ES)..."
+                   autocomplete="off"
+                   oninput="window.flxFilterGtLanguages(this.value)"/>
+          </div>
+        {% endif %}
+
+        <div class="flx-gt-lang-grid" id="flx-gt-lang-grid">
+          {% for lang in languages %}
+            <button type="button"
+                    class="flx-gt-lang-item {% if lang.code == source_lang %}active{% endif %}"
+                    role="menuitem"
+                    data-lang-code="{{ lang.code }}"
+                    data-lang-iso="{{ lang.iso }}"
+                    data-lang-name="{{ show_native ? lang.name_native : lang.name_en }}"
+                    data-lang-search="{{ (lang.name_en ~ ' ' ~ lang.name_native ~ ' ' ~ lang.iso)|lower }}"
+                    data-lang-flag="{{ lang.flag_svg }}"
+                    onclick="window.flxSelectLanguage('{{ lang.code }}', this, event)">
+              <img src="{{ lang.flag_svg }}" alt="{{ lang.iso }}" width="18" height="12" class="flx-gt-flag-img"/>
+              <span class="flx-gt-lang-text">
+                <span class="flx-gt-lang-primary">{{ show_native ? lang.name_native : lang.name_en }}</span>
+                {% if show_native and lang.name_native != lang.name_en %}
+                  <span class="flx-gt-lang-sub">{{ lang.name_en }}</span>
+                {% endif %}
+              </span>
+              <span class="flx-gt-lang-iso">{{ lang.iso }}</span>
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+{% if hide_google_bar %}
+/* Suppress Google Translate Top Banner & Hover Balloon */
+iframe.goog-te-banner-frame,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+body > .skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+body {
+  top: 0px !important;
+  position: static !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+{% endif %}
+
+.flx-gt-wrapper {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1056;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Open Sans", sans-serif;
+}
+li.flx-gt-top-li {
+  vertical-align: middle;
+}
+.flx-gt-wrapper.flx-pos-floating_bottom_right {
+  position: fixed !important;
+  bottom: 18px !important;
+  right: 18px !important;
+  z-index: 9999 !important;
+}
+.flx-gt-wrapper.flx-pos-floating_bottom_left {
+  position: fixed !important;
+  bottom: 18px !important;
+  left: 18px !important;
+  z-index: 9999 !important;
+}
+
+.flx-gt-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  white-space: nowrap;
+}
+.flx-gt-toggle-btn:hover,
+.flx-gt-toggle-btn:focus {
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.45);
+  outline: none;
+}
+
+/* Light Header / Light Theme Support (WCAG AA >= 7:1) */
+.flx-theme-light_clean .flx-gt-toggle-btn,
+.flx-pos-floating_bottom_right .flx-gt-toggle-btn,
+.flx-pos-floating_bottom_left .flx-gt-toggle-btn,
+nav#top.bg-light .flx-gt-toggle-btn {
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+.flx-theme-light_clean .flx-gt-toggle-btn:hover,
+nav#top.bg-light .flx-gt-toggle-btn:hover {
+  background-color: #f1f5f9;
+  color: #0284c7;
+  border-color: #94a3b8;
+}
+
+/* Dark Navy Pill Theme */
+.flx-theme-dark_navy .flx-gt-toggle-btn {
+  background-color: #0B254E;
+  color: #ffffff;
+  border: 1px solid #1e3a8a;
+}
+
+.flx-gt-flag-img {
+  width: 16px;
+  height: 11px;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  display: inline-block;
+}
+.flx-gt-caret {
+  font-size: 9px;
+  opacity: 0.85;
+  margin-left: 1px;
+}
+
+/* Inline Flags Bar Variant */
+.flx-gt-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.flx-gt-inline-btn:hover,
+.flx-gt-inline-btn.active {
+  background-color: #1882FF;
+  color: #ffffff;
+  border-color: #1882FF;
+}
+nav#top.bg-light .flx-gt-inline-btn {
+  background-color: #ffffff;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+/* Dropdown Panel (WCAG AA Compliant in Light & Dark Mode) */
+.flx-gt-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: auto;
+  width: 340px;
+  max-width: calc(100vw - 24px);
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.22);
+  padding: 10px;
+  z-index: 1065;
+  text-align: left;
+}
+.flx-pos-top_bar_left .flx-gt-dropdown-menu,
+.flx-pos-floating_bottom_left .flx-gt-dropdown-menu {
+  left: 0;
+  right: auto;
+}
+.flx-pos-floating_bottom_right .flx-gt-dropdown-menu,
+.flx-pos-floating_bottom_left .flx-gt-dropdown-menu {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+.flx-gt-dropdown-menu.show {
+  display: block !important;
+}
+
+.flx-gt-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px 8px 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #334155;
+}
+.flx-gt-zero-badge {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.flx-gt-search-wrap {
+  margin-bottom: 8px;
+}
+.flx-gt-search-input {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: #0f172a;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+}
+.flx-gt-search-input:focus {
+  border-color: #1882FF;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(24, 130, 255, 0.15);
+}
+
+.flx-gt-lang-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  max-height: 290px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+@media (max-width: 420px) {
+  .flx-gt-dropdown-menu {
+    width: 280px;
+  }
+  .flx-gt-lang-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flx-gt-lang-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #0f172a;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+.flx-gt-lang-item:hover,
+.flx-gt-lang-item:focus {
+  background-color: #f1f5f9;
+  color: #0284c7;
+  border-color: #cbd5e1;
+  outline: none;
+}
+.flx-gt-lang-item.active {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #93c5fd;
+  font-weight: 700;
+}
+.flx-gt-lang-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+  line-height: 1.2;
+}
+.flx-gt-lang-primary {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.flx-gt-lang-sub {
+  font-size: 10.5px;
+  color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.flx-gt-lang-iso {
+  font-size: 10px;
+  font-weight: 700;
+  color: #475569;
+  background-color: #f1f5f9;
+  padding: 1px 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.flx-gt-lang-item.active .flx-gt-lang-iso {
+  background-color: #1d4ed8;
+  color: #ffffff;
+}
+
+/* Dark Mode Overrides (WCAG AA Compliant) */
+[data-bs-theme="dark"] .flx-gt-dropdown-menu,
+.dark .flx-gt-dropdown-menu {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-color: #334155;
+}
+[data-bs-theme="dark"] .flx-gt-menu-header,
+.dark .flx-gt-menu-header {
+  border-bottom-color: #334155;
+  color: #cbd5e1;
+}
+[data-bs-theme="dark"] .flx-gt-search-input,
+.dark .flx-gt-search-input {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #475569;
+}
+[data-bs-theme="dark"] .flx-gt-lang-item,
+.dark .flx-gt-lang-item {
+  color: #f8fafc;
+}
+[data-bs-theme="dark"] .flx-gt-lang-item:hover,
+.dark .flx-gt-lang-item:hover {
+  background-color: #334155;
+  color: #38bdf8;
+  border-color: #475569;
+}
+[data-bs-theme="dark"] .flx-gt-lang-item.active,
+.dark .flx-gt-lang-item.active {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+[data-bs-theme="dark"] .flx-gt-lang-sub,
+.dark .flx-gt-lang-sub {
+  color: #cbd5e1;
+}
+[data-bs-theme="dark"] .flx-gt-lang-iso,
+.dark .flx-gt-lang-iso {
+  background-color: #0f172a;
+  color: #cbd5e1;
+}
+</style>
+
+<script type="text/javascript">
+(function() {
+  var wrapper = document.getElementById('flx-gt-wrapper');
+  if (!wrapper) return;
+
+  var sourceLang = wrapper.getAttribute('data-source-lang') || 'en';
+  var posMode = wrapper.getAttribute('data-position') || 'top_bar_right';
+  var autoRestore = wrapper.getAttribute('data-auto-restore') === '1';
+  var gtScriptLoaded = false;
+  var gtScriptReady = false;
+  var pendingTargetLang = null;
+
+  // Dynamic placement fallback if not already inside #top li.flx-gt-top-li
+  if (!wrapper.closest('.flx-gt-top-li')) {
+    var targetEl = null;
+    if (posMode === 'top_bar_right') {
+      targetEl = document.querySelector('#top .header-lang-currency') || document.querySelector('#top .float-end ul.list-inline') || document.querySelector('#top ul.list-inline');
+      if (targetEl) {
+        var li = document.createElement('li');
+        li.className = 'list-inline-item flx-gt-top-li';
+        li.appendChild(wrapper);
+        targetEl.insertBefore(li, targetEl.firstChild);
+      }
+    } else if (posMode === 'top_bar_left') {
+      targetEl = document.querySelector('#top .header-social') || document.querySelector('#top .float-start ul.list-inline') || document.querySelector('#top .container');
+      if (targetEl) {
+        targetEl.insertBefore(wrapper, targetEl.firstChild);
+      }
+    } else if (posMode === 'main_header') {
+      targetEl = document.querySelector('header #cart') || document.querySelector('header .container .row');
+      if (targetEl && targetEl.parentNode) {
+        targetEl.parentNode.insertBefore(wrapper, targetEl);
+      }
+    } else if (posMode === 'custom_selector') {
+      var customSel = wrapper.getAttribute('data-custom-selector');
+      var customIns = wrapper.getAttribute('data-custom-insert') || 'prepend';
+      if (customSel) {
+        try {
+          targetEl = document.querySelector(customSel);
+          if (targetEl) {
+            if (customIns === 'prepend') targetEl.insertBefore(wrapper, targetEl.firstChild);
+            else if (customIns === 'append') targetEl.appendChild(wrapper);
+            else if (customIns === 'before' && targetEl.parentNode) targetEl.parentNode.insertBefore(wrapper, targetEl);
+            else if (customIns === 'after' && targetEl.parentNode) targetEl.parentNode.insertBefore(wrapper, targetEl.nextSibling);
+          }
+        } catch (e) {}
+      }
+    }
+  }
+
+  function getSavedGoogTransLang() {
+    var match = document.cookie.match(/(?:^|;\s*)googtrans=([^;]+)/);
+    if (!match || !match[1]) return sourceLang;
+    var raw = decodeURIComponent(match[1]);
+    var parts = raw.split('/');
+    var lang = parts[parts.length - 1];
+    return lang || sourceLang;
+  }
+
+  function setGoogTransCookie(targetLang) {
+    var host = window.location.hostname;
+    var rootDomain = host.replace(/^www\./i, '');
+    if (!targetLang || targetLang === sourceLang) {
+      var exp = 'expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      document.cookie = 'googtrans=; ' + exp;
+      document.cookie = 'googtrans=; ' + exp + '; domain=' + host;
+      document.cookie = 'googtrans=; ' + exp + '; domain=.' + rootDomain;
+    } else {
+      var val = '/' + sourceLang + '/' + targetLang;
+      var maxAge = 'max-age=2592000; path=/; SameSite=Lax';
+      document.cookie = 'googtrans=' + val + '; ' + maxAge;
+      if (host.indexOf('.') !== -1) {
+        document.cookie = 'googtrans=' + val + '; ' + maxAge + '; domain=.' + rootDomain;
+      }
+    }
+  }
+
+  function updateSwitcherUI(langCode) {
+    var items = wrapper.querySelectorAll('[data-lang-code]');
+    var activeItem = null;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].getAttribute('data-lang-code') === langCode) {
+        items[i].classList.add('active');
+        activeItem = items[i];
+      } else {
+        items[i].classList.remove('active');
+      }
+    }
+    if (!activeItem) return;
+
+    var flagImg = document.getElementById('flx-gt-active-flag');
+    var labelEl = document.getElementById('flx-gt-active-label');
+    var iso = activeItem.getAttribute('data-lang-iso') || langCode.toUpperCase();
+    var name = activeItem.getAttribute('data-lang-name') || iso;
+    var flagSvg = activeItem.getAttribute('data-lang-flag');
+
+    if (flagImg && flagSvg) {
+      flagImg.src = flagSvg;
+      flagImg.alt = iso;
+      flagImg.classList.remove('d-none');
+    }
+    if (labelEl) {
+      if (wrapper.classList.contains('flx-var-dropdown_flag_name')) {
+        labelEl.textContent = name;
+      } else if (wrapper.classList.contains('flx-var-dropdown_globe_text')) {
+        labelEl.textContent = (langCode === sourceLang) ? ('Translate (' + iso + ')') : (name + ' (' + iso + ')');
+      } else if (wrapper.classList.contains('flx-var-dropdown_flag_code')) {
+        labelEl.textContent = iso;
+      }
+    }
+  }
+
+  function triggerGoogleCombo(targetLang) {
+    var combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+      if (targetLang === sourceLang) {
+        combo.value = '';
+        combo.dispatchEvent(new Event('change'));
+        // Also check Google frame restore button if present
+        setTimeout(function() {
+          if (document.documentElement.classList.contains('translated-ltr') || document.documentElement.classList.contains('translated-rtl')) {
+            window.location.reload();
+          }
+        }, 350);
+      } else {
+        combo.value = targetLang;
+        combo.dispatchEvent(new Event('change'));
+      }
+      return true;
+    }
+    return false;
+  }
+
+  window.flxGoogleTranslateElementInit = function() {
+    try {
+      var included = [];
+      var items = wrapper.querySelectorAll('[data-lang-code]');
+      for (var i = 0; i < items.length; i++) {
+        var c = items[i].getAttribute('data-lang-code');
+        if (c && included.indexOf(c) === -1) included.push(c);
+      }
+      new google.translate.TranslateElement({
+        pageLanguage: sourceLang,
+        includedLanguages: included.join(','),
+        autoDisplay: false
+      }, 'google_translate_element');
+      gtScriptReady = true;
+
+      if (pendingTargetLang) {
+        var target = pendingTargetLang;
+        pendingTargetLang = null;
+        var attempts = 0;
+        var timer = setInterval(function() {
+          attempts++;
+          if (triggerGoogleCombo(target) || attempts > 25) {
+            clearInterval(timer);
+            var caret = document.getElementById('flx-gt-caret-icon');
+            if (caret) caret.className = 'fa-solid fa-chevron-down flx-gt-caret';
+          }
+        }, 80);
+      }
+    } catch (e) {}
+  };
+
+  function ensureGoogleScriptLoaded() {
+    if (gtScriptLoaded) return;
+    gtScriptLoaded = true;
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.defer = true;
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=flxGoogleTranslateElementInit';
+    document.head.appendChild(s);
+  }
+
+  window.flxToggleGtDropdown = function(btn, e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    var menu = document.getElementById('flx-gt-dropdown-menu');
+    if (!menu) return;
+    var isShown = menu.classList.contains('show');
+
+    // Close other top bar dropdowns
+    var openMenus = document.querySelectorAll('.dropdown-menu.show');
+    for (var i = 0; i < openMenus.length; i++) openMenus[i].classList.remove('show');
+
+    if (isShown) {
+      menu.classList.remove('show');
+      btn.setAttribute('aria-expanded', 'false');
+    } else {
+      menu.classList.add('show');
+      btn.setAttribute('aria-expanded', 'true');
+      // ZERO-LAG ON-DEMAND LOAD: Only load Google Translate script when user opens the language dropdown!
+      ensureGoogleScriptLoaded();
+      var searchInput = document.getElementById('flx-gt-search-input');
+      if (searchInput && window.innerWidth > 768) {
+        setTimeout(function() { searchInput.focus(); }, 40);
+      }
+    }
+  };
+
+  window.flxFilterGtLanguages = function(query) {
+    var q = (query || '').toLowerCase().trim();
+    var items = wrapper.querySelectorAll('#flx-gt-lang-grid .flx-gt-lang-item');
+    for (var i = 0; i < items.length; i++) {
+      var hay = items[i].getAttribute('data-lang-search') || '';
+      items[i].style.display = (!q || hay.indexOf(q) !== -1) ? '' : 'none';
+    }
+  };
+
+  window.flxSelectLanguage = function(targetLang, btnEl, e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setGoogTransCookie(targetLang);
+    updateSwitcherUI(targetLang);
+
+    var menu = document.getElementById('flx-gt-dropdown-menu');
+    var toggleBtn = document.getElementById('flx-gt-toggle-btn');
+    if (menu) menu.classList.remove('show');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+
+    if (targetLang === sourceLang && !gtScriptLoaded) {
+      return;
+    }
+
+    if (triggerGoogleCombo(targetLang)) {
+      return;
+    }
+
+    // Show subtle spinner while on-demand script finishes initializing
+    var caret = document.getElementById('flx-gt-caret-icon');
+    if (caret) caret.className = 'fa-solid fa-spinner fa-spin flx-gt-caret';
+    pendingTargetLang = targetLang;
+    ensureGoogleScriptLoaded();
+
+    // Fallback: if combo is already loaded in a frame or switching back to original
+    setTimeout(function() {
+      if (pendingTargetLang) {
+        if (!triggerGoogleCombo(targetLang)) {
+          window.location.reload();
+        }
+        pendingTargetLang = null;
+      }
+    }, 1800);
+  };
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#flx-gt-wrapper')) {
+      var menu = document.getElementById('flx-gt-dropdown-menu');
+      var toggleBtn = document.getElementById('flx-gt-toggle-btn');
+      if (menu && menu.classList.contains('show')) {
+        menu.classList.remove('show');
+        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+  // Check if visitor already has a non-default translation cookie active
+  var currentSavedLang = getSavedGoogTransLang();
+  if (currentSavedLang && currentSavedLang !== sourceLang) {
+    updateSwitcherUI(currentSavedLang);
+    if (autoRestore) {
+      pendingTargetLang = currentSavedLang;
+      var loadAfterIdle = function() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(ensureGoogleScriptLoaded, { timeout: 1500 });
+        } else {
+          setTimeout(ensureGoogleScriptLoaded, 300);
+        }
+      };
+      if (document.readyState === 'complete') {
+        loadAfterIdle();
+      } else {
+        window.addEventListener('load', loadAfterIdle, { once: true });
+      }
+    }
+  }
+})();
+</script>

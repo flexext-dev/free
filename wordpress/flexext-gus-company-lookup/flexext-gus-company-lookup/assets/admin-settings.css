@@ -1,0 +1,125 @@
+/**
+ * FlexExt Company Lookup for GUS - Admin Settings Styles
+ * Scoped strictly to plugin elements.
+ *
+ * @version 1.0.3
+ */
+
+.flexcolo-admin-wrap {
+    max-width: 1040px;
+    margin-top: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.flexcolo-admin-header {
+    background: linear-gradient(135deg, #091322 0%, #0f2744 100%);
+    color: #ffffff;
+    padding: 22px 28px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.flexcolo-admin-header h1 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flexcolo-version-badge {
+    font-size: 11px;
+    background: #0284c7;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.flexcolo-admin-subtitle {
+    color: #e2e8f0;
+    margin: 6px 0 0 0;
+    font-size: 13px;
+}
+
+.flexcolo-admin-card {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.flexcolo-admin-card h2 {
+    margin-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.flexcolo-cache-bar {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flexcolo-cache-badge {
+    background: #e2e8f0;
+    color: #1e293b;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-left: 6px;
+}
+
+.flexcolo-diag-controls {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.flexcolo-diag-input {
+    padding: 7px 12px;
+    font-family: monospace;
+    font-size: 14px;
+    width: 240px;
+}
+
+.flexcolo-diag-output {
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    max-height: 350px;
+}
+
+.flexcolo-order-audit-proof {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    color: #0f172a;
+    border-left: 4px solid #334155;
+    border-radius: 4px;
+}

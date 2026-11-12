@@ -1,0 +1,224 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save|default('Save') }}" class="btn btn-primary"><i class="fa fa-save"></i> Save Settings</button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel|default('Cancel') }}" class="btn btn-default"><i class="fa fa-reply"></i> Cancel</a>
+      </div>
+      <h1>{{ heading_title }} <span class="label label-success" style="font-size: 11px; vertical-align: middle; margin-left: 6px;">v{{ version }} Free Edition</span></h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+    <!-- PRO Promotional Upgrade Banner (FlexExt.dev Special Offer) -->
+    <div class="panel panel-default" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 8px; border: none; margin-bottom: 20px;">
+      <div class="panel-body" style="padding: 22px;">
+        <div class="row" style="display: flex; align-items: center; flex-wrap: wrap;">
+          <div class="col-sm-8">
+            <span class="label label-warning" style="font-size: 11px; font-weight: bold; padding: 4px 8px;">★ ODBLOKUJ WERSJĘ PRO (10% OFF)</span>
+            <h3 style="color: #ffffff; margin-top: 10px; margin-bottom: 6px; font-weight: bold; font-size: 18px;">Chcesz nieograniczoną liczbę zakładek, przypisywanie do kategorii, reguły klientów i wideo?</h3>
+            <p style="color: #94a3b8; margin: 0; font-size: 13px; line-height: 1.6;">
+              Pobierz wersję PRO na <strong>FlexExt.dev</strong> (10% rabatu z kodem promocyjnym <span class="label label-default" style="color: #0f172a; background: #f8fafc; font-weight: bold;">OPENCART10</span>).<br/>
+              <span style="color: #64748b; font-style: italic;">EN: Want unlimited custom tabs, category-level rules, customer group restrictions &amp; video tabs? Upgrade to PRO on FlexExt.dev (10% OFF with code OPENCART10).</span>
+            </p>
+          </div>
+          <div class="col-sm-4 text-right" style="padding-top: 10px;">
+            <a href="https://flexext.dev/?utm_source=opencart_marketplace&amp;utm_medium=free_lite_admin_oc3&amp;utm_campaign=product_tabs_lite" target="_blank" rel="noopener" class="btn btn-info btn-lg" style="background: #0284c7; border: none; font-weight: bold; border-radius: 6px; padding: 12px 20px;">
+              <i class="fa fa-external-link"></i> Pobierz wersję PRO (Kod: OPENCART10) &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Module Settings Panel -->
+    <div class="panel panel-default" style="border-radius: 8px;">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-folder-open text-primary"></i> 1 Custom Product Tab Settings (Storewide or Per-Product)</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+          
+          <!-- Status -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-9">
+              <select name="module_product_tabs_lite_status" id="input-status" class="form-control" style="max-width: 250px;">
+                <option value="1" {% if status %}selected="selected"{% endif %}>{{ text_enabled|default('Enabled') }}</option>
+                <option value="0" {% if not status %}selected="selected"{% endif %}>{{ text_disabled|default('Disabled') }}</option>
+              </select>
+              <span class="help-block">Enable or disable displaying this custom tab on storefront product pages.</span>
+            </div>
+          </div>
+
+          <!-- Tab Icon & Sort Order -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="input-icon">{{ entry_tab_icon }}</label>
+            <div class="col-sm-4">
+              <div class="input-group">
+                <span class="input-group-addon" id="tab-icon-preview"><i class="{{ tab_icon }} text-primary"></i></span>
+                <input type="text" name="module_product_tabs_lite_icon" value="{{ tab_icon }}" id="input-icon" class="form-control" placeholder="fa fa-ruler" />
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-header">Popular Presets</li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-ruler"><i class="fa fa-ruler"></i> Size Guide / Dimensions</a></li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-truck"><i class="fa fa-truck"></i> Shipping &amp; Delivery</a></li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-shield"><i class="fa fa-shield"></i> Warranty &amp; Guarantee</a></li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-question-circle"><i class="fa fa-question-circle"></i> FAQ &amp; Instructions</a></li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-book"><i class="fa fa-book"></i> User Manual &amp; Docs</a></li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-list-alt"><i class="fa fa-list-alt"></i> Technical Specifications</a></li>
+                    <li><a href="#" class="icon-preset" data-icon="fa fa-file-text-o"><i class="fa fa-file-text-o"></i> General Information</a></li>
+                  </ul>
+                </div>
+              </div>
+              <span class="help-block">{{ help_tab_icon }}</span>
+            </div>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-sort-numeric-asc"></i></span>
+                <input type="number" name="module_product_tabs_lite_sort_order" value="{{ sort_order }}" id="input-sort-order" class="form-control" placeholder="Sort Order" />
+              </div>
+              <span class="help-block">Sort order alongside Description and Reviews (default: 2).</span>
+            </div>
+          </div>
+
+          <hr/>
+
+          <!-- Language Tabs -->
+          <ul class="nav nav-tabs" id="language-tabs">
+            {% for language in languages %}
+            <li {% if loop.first %}class="active"{% endif %}><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+            {% endfor %}
+          </ul>
+
+          <div class="tab-content" style="padding-top: 15px;">
+            {% for language in languages %}
+            <div class="tab-pane {% if loop.first %}active{% endif %}" id="language{{ language.language_id }}">
+              
+              <!-- Tab Title -->
+              <div class="form-group required">
+                <label class="col-sm-3 control-label" for="input-title-{{ language.language_id }}">{{ entry_tab_title }}</label>
+                <div class="col-sm-9">
+                  <input type="text" name="module_product_tabs_lite_description[{{ language.language_id }}][title]" value="{{ descriptions[language.language_id].title|default('Size Guide / Shipping Info') }}" id="input-title-{{ language.language_id }}" class="form-control" placeholder="e.g. Size Guide, Shipping Info, Warranty" />
+                  <span class="help-block">{{ help_tab_title }}</span>
+                </div>
+              </div>
+
+              <!-- Tab Content Summernote -->
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="input-content-{{ language.language_id }}">{{ entry_tab_content }}</label>
+                <div class="col-sm-9">
+                  <textarea name="module_product_tabs_lite_description[{{ language.language_id }}][description]" placeholder="Enter rich text, size charts, delivery estimates or warranty terms..." id="input-content-{{ language.language_id }}" data-toggle="summernote" class="form-control">{{ descriptions[language.language_id].description|default('') }}</textarea>
+                  <span class="help-block">{{ help_tab_content }}</span>
+                </div>
+              </div>
+
+            </div>
+            {% endfor %}
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Feature Comparison Table -->
+    <div class="panel panel-default" style="border-radius: 8px;">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-balance-scale text-primary"></i> Free Lite Edition vs Commercial PRO Comparison</h3>
+      </div>
+      <div class="panel-body" style="padding: 0;">
+        <table class="table table-bordered table-hover" style="margin: 0;">
+          <thead>
+            <tr style="background: #f8fafc;">
+              <th style="width: 45%;">Feature</th>
+              <th class="text-center" style="width: 25%;">Free Lite Edition</th>
+              <th class="text-center text-primary" style="width: 30%; font-weight: bold;">Product Custom Tabs PRO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Number of Custom Tabs</strong></td>
+              <td class="text-center"><span class="label label-default">1 Custom Tab</span></td>
+              <td class="text-center"><span class="label label-success">Unlimited Custom Tabs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Global Storewide Tab (Size Guide / Shipping Info)</strong></td>
+              <td class="text-center text-success"><i class="fa fa-check"></i> Included</td>
+              <td class="text-center text-success"><i class="fa fa-check"></i> Included</td>
+            </tr>
+            <tr>
+              <td><strong>Category-Specific Tab Assignment</strong></td>
+              <td class="text-center text-muted"><i class="fa fa-times"></i> Not available</td>
+              <td class="text-center text-success"><strong><i class="fa fa-check"></i> Unlimited Category Rules</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Customer Group Rules (B2B / Retail)</strong></td>
+              <td class="text-center text-muted"><i class="fa fa-times"></i> Not available</td>
+              <td class="text-center text-success"><strong><i class="fa fa-check"></i> Per-group visibility</strong></td>
+            </tr>
+            <tr>
+              <td><strong>YouTube &amp; Vimeo Responsive Video Embeds</strong></td>
+              <td class="text-center text-muted"><i class="fa fa-times"></i> Manual iframe only</td>
+              <td class="text-center text-success"><strong><i class="fa fa-check"></i> 1-Click Video Player Tabs</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Excel Bulk Manager Integration (XLSX / CSV)</strong></td>
+              <td class="text-center text-muted"><i class="fa fa-times"></i> Not available</td>
+              <td class="text-center text-success"><strong><i class="fa fa-check"></i> Full Import / Export</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Special Discount Coupon</strong></td>
+              <td class="text-center">—</td>
+              <td class="text-center"><span class="label label-warning" style="font-weight: bold;">10% OFF with code: OPENCART10</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer text-center" style="background: #ffffff; padding: 15px;">
+        <a href="https://flexext.dev/?utm_source=opencart_marketplace&amp;utm_medium=free_lite_table_oc3&amp;utm_campaign=product_tabs_lite" target="_blank" rel="noopener" class="btn btn-primary btn-lg" style="font-weight: bold;">
+          <i class="fa fa-crown"></i> Upgrade to Commercial PRO Suite on FlexExt.dev &rarr;
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.icon-preset').on('click', function(e) {
+    e.preventDefault();
+    var icon = $(this).data('icon');
+    $('#input-icon').val(icon);
+    $('#tab-icon-preview').html('<i class="' + icon + ' text-primary"></i>');
+  });
+
+  $('#input-icon').on('input', function() {
+    $('#tab-icon-preview').html('<i class="' + $(this).val() + ' text-primary"></i>');
+  });
+
+  if (typeof $.fn.summernote !== 'undefined') {
+    $('[data-toggle=\'summernote\']').summernote({
+      height: 220
+    });
+  }
+});
+</script>
+{{ footer }}

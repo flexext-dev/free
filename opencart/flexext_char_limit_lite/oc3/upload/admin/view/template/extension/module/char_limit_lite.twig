@@ -1,0 +1,70 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i> Cancel</a>
+      </div>
+      <h1>{{ heading_title }} <span class="label label-success" style="font-size: 11px;">v{{ version }} Free Edition</span></h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+    <!-- PRO Upgrade Banner -->
+    <div class="panel panel-default" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 8px; border: none; margin-bottom: 20px;">
+      <div class="panel-body" style="padding: 20px;">
+        <div class="row">
+          <div class="col-sm-8">
+            <span class="label label-warning" style="font-size: 11px; font-weight: bold;">★ UNLOCK COMMERCIAL PRO FEATURES</span>
+            <h3 style="color: #ffffff; margin-top: 8px; margin-bottom: 5px; font-weight: bold;">Need per-product character limits, minimum lengths &amp; multilingual placeholders?</h3>
+            <p style="color: #94a3b8; margin: 0; font-size: 13px;">Upgrade to <strong>FlexExt Character Limit Suite PRO</strong> for granular min/max lengths per individual option, multilingual custom default texts, and bulk manager integration.</p>
+          </div>
+          <div class="col-sm-4 text-right" style="padding-top: 15px;">
+            <a href="https://flexext.dev/flexext-character-limit-pro-products-options?utm_source=opencart_marketplace&amp;utm_medium=free_lite_admin_oc3&amp;utm_campaign=char_limit_lite" target="_blank" rel="noopener" class="btn btn-info btn-lg" style="background: #0284c7; border: none; font-weight: bold;">
+              <i class="fa fa-external-link"></i> Get PRO (10% OFF Code: OPENCART10) &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" style="border-radius: 8px;">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-9">
+              <select name="module_char_limit_lite_status" id="input-status" class="form-control">
+                <option value="1" {% if module_char_limit_lite_status %}selected="selected"{% endif %}>{{ text_enabled|default('Enabled') }}</option>
+                <option value="0" {% if not module_char_limit_lite_status %}selected="selected"{% endif %}>{{ text_disabled|default('Disabled') }}</option>
+              </select>
+              <span class="help-block">Enables live visual character countdown badges on product option text and textarea fields.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="input-limit">{{ entry_default_limit }}</label>
+            <div class="col-sm-9">
+              <input type="number" name="module_char_limit_lite_default_limit" value="{{ module_char_limit_lite_default_limit }}" id="input-limit" class="form-control" style="max-width: 200px;" />
+              <span class="help-block">Maximum characters allowed per option input. Input text is automatically capped.</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

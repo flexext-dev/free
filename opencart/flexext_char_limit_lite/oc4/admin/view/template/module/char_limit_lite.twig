@@ -1,0 +1,65 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save</button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i> Back</a>
+      </div>
+      <h1>{{ heading_title }} <span class="badge bg-success" style="font-size: 0.75rem;">v{{ version }} Free Edition</span></h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div id="alert"></div>
+
+    <!-- PRO Upgrade Banner -->
+    <div class="card border-0 shadow-sm mb-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; border-radius: 12px;">
+      <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+        <div>
+          <span class="badge bg-warning text-dark fw-bold mb-2">★ UNLOCK COMMERCIAL PRO FEATURES</span>
+          <h4 class="text-white fw-bold mb-1">Need per-product character limits, minimum lengths & multilingual placeholders?</h4>
+          <p class="text-white-50 mb-0 small">Upgrade to <strong>FlexExt Character Limit Suite PRO</strong> for granular min/max lengths per individual option, multilingual custom default texts, and bulk manager integration.</p>
+        </div>
+        <div class="text-nowrap">
+          <a href="https://flexext.dev/flexext-character-limit-pro-products-options?utm_source=opencart_marketplace&utm_medium=free_lite_admin&utm_campaign=char_limit_lite" target="_blank" rel="noopener" class="btn btn-primary px-4 py-2 fw-bold" style="background: #0284c7; border: none; border-radius: 8px;">
+            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Get PRO (10% OFF Code: OPENCART10) &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+      <div class="card-header bg-white py-3">
+        <h5 class="card-title mb-0 fw-bold"><i class="fa-solid fa-sliders text-primary me-2"></i>General Settings</h5>
+      </div>
+      <div class="card-body p-4">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-9">
+              <div class="form-check form-switch form-switch-lg mt-2">
+                <input type="hidden" name="module_char_limit_lite_status" value="0"/>
+                <input type="checkbox" name="module_char_limit_lite_status" value="1" id="input-status" class="form-check-input" {% if status %}checked{% endif %}/>
+              </div>
+              <div class="form-text text-muted">Enables live visual character countdown badges on product option text and textarea fields.</div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <label class="col-sm-3 col-form-label fw-semibold" for="input-limit">{{ entry_default_limit }}</label>
+            <div class="col-sm-9">
+              <input type="number" name="module_char_limit_lite_default_limit" value="{{ default_limit }}" id="input-limit" class="form-control" style="max-width: 200px;"/>
+              <div class="form-text text-muted">Maximum characters allowed per option input. Input text is automatically capped.</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
