@@ -27,10 +27,10 @@ All 4 free Joomla extensions are verified and published in the official **Joomla
 
 | Plugin | Folder | Compatibility | 1-Click Direct `.ZIP` | Product Page & Docs |
 | :--- | :--- | :--- | :--- | :--- |
-| **Auto-GUS & EU VIES Company Lookup for WooCommerce** (`v1.0.4`) | [`wordpress/flexext-gus-company-lookup`](./wordpress/flexext-gus-company-lookup) | WP 6.4–6.7+, Woo 8–9+ (Blocks & Classic) | [Download `.ZIP`](https://flexext.dev/free-download/82) | [Product Page](https://flexext.dev/en-gb/product/auto-gus-nip-woocommerce-free) |
-| **P24 Donations Lite for WordPress (Przelewy24 BLIK & Cards)** (`v1.2.2`) | [`wordpress/flexext-darowizny-dla-przelewy24-lite`](./wordpress/flexext-darowizny-dla-przelewy24-lite) | WP 6.4–6.7+ (No WooCommerce needed) | [Download `.ZIP`](https://flexext.dev/free-download/84) | [Product Page](https://flexext.dev/en-gb/product/p24-donations-lite-wordpress-free) |
-| **FlexExt AI SEO & Agent Readiness Free for WordPress** (`v1.0.0`) | [`wordpress/flexext-ai-seo-free`](./wordpress/flexext-ai-seo-free) | WP 6.4–6.7+ (`/llms.txt`, RFC 8288, JSON-LD) | [Download `.ZIP`](https://flexext.dev/free-download/98) | [Product Page](https://flexext.dev/en-gb/product/wordpress-ai-seo-agent-readiness-free) |
-| **FlexExt WCAG 2.2 & EAA 2025 Accessibility Guard Free** (`v1.0.0`) | [`wordpress/flexext-wcag-eaa-guard-free`](./wordpress/flexext-wcag-eaa-guard-free) | WP 6.4–6.7+ (WCAG 2.2 AA Toolbar) | [Download `.ZIP`](https://flexext.dev/free-download/99) | [Product Page](https://flexext.dev/en-gb/product/wordpress-wcag-22-eaa-2025-accessibility-guard-free) |
+| **Auto-GUS & EU VIES Company Lookup for WooCommerce** (`v1.0.4`) | [`wordpress/flexext-gus-company-lookup`](./wordpress/flexext-gus-company-lookup) | WP 6.4–6.7+, Woo 8–9+ (Blocks & Classic) | [Download `.ZIP`](https://flexext.dev/free-download/93) | [Product Page](https://flexext.dev/en-gb/product/flexext-gus-company-lookup-free-wordpress) |
+| **P24 Donations Lite for WordPress (Przelewy24 BLIK & Cards)** (`v1.2.2`) | [`wordpress/flexext-darowizny-dla-przelewy24-lite`](./wordpress/flexext-darowizny-dla-przelewy24-lite) | WP 6.4–6.7+ (No WooCommerce needed) | [Download `.ZIP`](https://flexext.dev/free-download/84) | [Product Page](https://flexext.dev/en-gb/product/p24-donations-lite-wordpress) |
+| **FlexExt AI SEO & Agent Readiness Free for WordPress** (`v1.0.0`) | [`wordpress/flexext-ai-seo-free`](./wordpress/flexext-ai-seo-free) | WP 6.4–6.7+ (`/llms.txt`, RFC 8288, JSON-LD) | [Download `.ZIP`](https://github.com/flexext-dev/free/releases/download/v2026.11/flexext-ai-seo-free_v1.0.0.zip) | [Product Page](https://flexext.dev/en-gb/product/wp-ai-seo-agent-readiness-pro) |
+| **FlexExt WCAG 2.2 & EAA 2025 Accessibility Guard Free** (`v1.0.0`) | [`wordpress/flexext-wcag-eaa-guard-free`](./wordpress/flexext-wcag-eaa-guard-free) | WP 6.4–6.7+ (WCAG 2.2 AA Toolbar) | [Download `.ZIP`](https://github.com/flexext-dev/free/releases/download/v2026.11/flexext-wcag-eaa-guard-free_v1.0.0.zip) | [Product Page](https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-wordpress) |
 
 ---
 
@@ -38,10 +38,10 @@ All 4 free Joomla extensions are verified and published in the official **Joomla
 
 | Module | Folder | Compatibility | 1-Click Direct `.ZIP` | Product Page |
 | :--- | :--- | :--- | :--- | :--- |
-| **Zero-Lag Google Translate & Multi-Language Switcher** (`v1.0.1`) | [`opencart/flexext_google_translate_oc4`](./opencart/flexext_google_translate_oc4) | OpenCart 4.0.x – 4.1.0.4+ | [Download `.ZIP`](https://flexext.dev/free-download/94) | [Product Page](https://flexext.dev/en-gb/product/flexext-google-translate-bar-free) |
-| **Product Custom Tabs Lite** | [`opencart/flexext_product_tabs_lite`](./opencart/flexext_product_tabs_lite) | OpenCart 4.x & OpenCart 3.x | [Download `.ZIP`](https://flexext.dev/free-download/75) | [Product Page](https://flexext.dev/en-gb/product/flexext-product-tabs-free-lite) |
-| **Hide Quantity & Direct Buy Lite** | [`opencart/flexext_hide_qty_lite`](./opencart/flexext_hide_qty_lite) | OpenCart 4.x & OpenCart 3.x | [Download `.ZIP`](https://flexext.dev/free-download/76) | [Product Page](https://flexext.dev/en-gb/product/flexext-hide-quantity-free-lite) |
-| **Character Limit on Options Lite** | [`opencart/flexext_char_limit_lite`](./opencart/flexext_char_limit_lite) | OpenCart 4.x & OpenCart 3.x | [Download `.ZIP`](https://flexext.dev/free-download/77) | [Product Page](https://flexext.dev/en-gb/product/flexext-character-limit-options-free-lite) |
+| **Zero-Lag Google Translate & Multi-Language Switcher** (`v1.0.1`) | [`opencart/flexext_google_translate_oc4`](./opencart/flexext_google_translate_oc4) | OpenCart 4.0.x – 4.1.0.4+ | [Download `.ZIP`](https://flexext.dev/free-download/94) | [Product Page](https://flexext.dev/en-gb/product/flexext-zero-lag-google-translate-free-opencart) |
+| **Product Custom Tabs Lite** | [`opencart/flexext_product_tabs_lite`](./opencart/flexext_product_tabs_lite) | OpenCart 4.x & OpenCart 3.x | [Download `.ZIP`](https://flexext.dev/free-download/75) | [Product Page](https://flexext.dev/en-gb/product/product-custom-tabs-lite-free-opencart) |
+| **Hide Quantity & Direct Buy Lite** | [`opencart/flexext_hide_qty_lite`](./opencart/flexext_hide_qty_lite) | OpenCart 4.x & OpenCart 3.x | [Download `.ZIP`](https://flexext.dev/free-download/76) | [Product Page](https://flexext.dev/en-gb/product/hide-quantity-field-lite-free-opencart) |
+| **Character Limit on Options Lite** | [`opencart/flexext_char_limit_lite`](./opencart/flexext_char_limit_lite) | OpenCart 4.x & OpenCart 3.x | [Download `.ZIP`](https://flexext.dev/free-download/77) | [Product Page](https://flexext.dev/en-gb/product/character-limit-options-lite-free-opencart) |
 
 ---
 
