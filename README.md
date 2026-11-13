@@ -16,7 +16,7 @@ All 4 free Joomla extensions are verified and published in the official **Joomla
 
 | Extension | Category | Official JED Listing | 1-Click Direct `.ZIP` | Live Joomla 6 Demo |
 | :--- | :--- | :--- | :--- | :--- |
-| **FlexExt Store Basic** (`v1.17.5`) | Native E-Commerce & Shopping Cart | [View on JED](https://extensions.joomla.org/extension/e-commerce/shopping-cart/flexext-store-basic/) | [Download `.ZIP`](https://flexext.dev/free-download/78) | [j6-demo.flexext.dev](https://j6-demo.flexext.dev) |
+| **FlexExt Store Basic** (`v1.17.6`) | Native E-Commerce & Shopping Cart | [View on JED](https://extensions.joomla.org/extension/e-commerce/shopping-cart/flexext-store-basic/) | [Download `.ZIP`](https://flexext.dev/free-download/78) | [j6-demo.flexext.dev](https://j6-demo.flexext.dev) |
 | **FlexExt Web Accessibility & EAA Guard Free** (`v1.0.1`) | EAA 2025 & WCAG 2.2 AA Toolbar | [View on JED](https://extensions.joomla.org/extension/site-management/seo-a-metadata/flexext-web-accessibility-eaa-guard-free/) | [Download `.ZIP`](https://flexext.dev/free-download/91) | [j6-demo.flexext.dev](https://j6-demo.flexext.dev) |
 | **Content - FlexExt Articles Hub Free** (`v1.0.2`) | Reading Time, Progress Bar & Share | [View on JED](https://extensions.joomla.org/extension/news-display/content-flexext-articles-hub/) | [Download `.ZIP`](https://flexext.dev/free-download/96) | [j6-demo.flexext.dev](https://j6-demo.flexext.dev) |
 | **FlexExt AI SEO & Agent Readiness Free** (`v1.0.2`) | `/llms.txt`, RFC 8288 & AI Discovery | [View on JED](https://extensions.joomla.org/extension/flexext-ai-seo-agent-readiness/) | [Download `.ZIP`](https://flexext.dev/free-download/97) | [j6-demo.flexext.dev](https://j6-demo.flexext.dev) |
@@ -29,8 +29,8 @@ All 4 free Joomla extensions are verified and published in the official **Joomla
 | :--- | :--- | :--- | :--- | :--- |
 | **Auto-GUS & EU VIES Company Lookup for WooCommerce** (`v1.0.4`) | [`wordpress/flexext-gus-company-lookup`](./wordpress/flexext-gus-company-lookup) | WP 6.4–6.7+, Woo 8–9+ (Blocks & Classic) | [Download `.ZIP`](https://flexext.dev/free-download/93) | [Product Page](https://flexext.dev/en-gb/product/flexext-gus-company-lookup-free-wordpress) |
 | **P24 Donations Lite for WordPress (Przelewy24 BLIK & Cards)** (`v1.2.2`) | [`wordpress/flexext-darowizny-dla-przelewy24-lite`](./wordpress/flexext-darowizny-dla-przelewy24-lite) | WP 6.4–6.7+ (No WooCommerce needed) | [Download `.ZIP`](https://flexext.dev/free-download/84) | [Product Page](https://flexext.dev/en-gb/product/p24-donations-lite-wordpress) |
-| **FlexExt AI SEO & Agent Readiness Free for WordPress** (`v1.0.0`) | [`wordpress/flexext-ai-seo-free`](./wordpress/flexext-ai-seo-free) | WP 6.4–6.7+ (`/llms.txt`, RFC 8288, JSON-LD) | [Download `.ZIP`](https://github.com/flexext-dev/free/releases/download/v2026.11/flexext-ai-seo-free_v1.0.0.zip) | [Product Page](https://flexext.dev/en-gb/product/wp-ai-seo-agent-readiness-pro) |
-| **FlexExt WCAG 2.2 & EAA 2025 Accessibility Guard Free** (`v1.0.0`) | [`wordpress/flexext-wcag-eaa-guard-free`](./wordpress/flexext-wcag-eaa-guard-free) | WP 6.4–6.7+ (WCAG 2.2 AA Toolbar) | [Download `.ZIP`](https://github.com/flexext-dev/free/releases/download/v2026.11/flexext-wcag-eaa-guard-free_v1.0.0.zip) | [Product Page](https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-wordpress) |
+| **FlexExt AI SEO & Agent Readiness for WordPress** (`v1.0.2`) | [`wordpress/flexext-ai-seo-free`](./wordpress/flexext-ai-seo-free) | WP 6.4–6.7+ (`/llms.txt`, RFC 8288, JSON-LD) | [Download `.ZIP`](https://github.com/flexext-dev/free/releases/download/v2026.11/flexext-ai-seo_v1.0.2.zip) | [Product Page](https://flexext.dev/en-gb/product/wp-ai-seo-agent-readiness-pro) |
+| **FlexExt WCAG & EAA Accessibility Guard for WordPress** (`v1.0.2`) | [`wordpress/flexext-wcag-eaa-guard-free`](./wordpress/flexext-wcag-eaa-guard-free) | WP 6.4–6.7+ (WCAG 2.2 AA Toolbar) | [Download `.ZIP`](https://github.com/flexext-dev/free/releases/download/v2026.11/flexext-wcag-eaa-guard_v1.0.2.zip) | [Product Page](https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-wordpress) |
 
 ---
 
@@ -61,7 +61,7 @@ All 4 free Joomla extensions are verified and published in the official **Joomla
 
 Need multi-gateway payments (**Przelewy24 BLIK, Stripe, PayU, PayPal**), parcel lockers (**InPost Paczkomaty 24/7, DHL, DPD, Orlen Paczka**), automated PDF VAT invoicing, EU Omnibus 30-day lowest price tracking, or automated WCAG contrast auditing?
 
-Use community promo code **`UPGRADE15`** at [https://flexext.dev](https://flexext.dev) for an instant **15% discount** on any Commercial Standard, PRO, or Ultimate edition — zero OTP registration required.
+Explore Commercial Standard, PRO, and Ultimate editions at [https://flexext.dev](https://flexext.dev) with instant 1-click checkout and zero OTP registration required.
 
 ---
 

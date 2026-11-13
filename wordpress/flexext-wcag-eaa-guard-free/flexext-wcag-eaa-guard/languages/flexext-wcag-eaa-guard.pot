@@ -1,0 +1,28 @@
+# Copyright (C) 2026 FlexExt Dev
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: FlexExt Web Accessibility & EAA Guard (Free) 1.0.1\n"
+"Report-Msgid-Bugs-To: https://flexext.dev/\n"
+"Last-Translator: FlexExt Dev <contact@flexext.dev>\n"
+"Language-Team: Polish <contact@flexext.dev>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-21T11:00:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: FlexExt Translation Tool\n"
+"X-Domain: flexext-wcag-eaa-guard\n"
+
+msgid "Ustawienia"
+msgstr ""
+
+msgid "Wersja PRO ($25)"
+msgstr ""
+
+#. translators: %d: count of images missing alt attribute
+msgid "Ten wpis zawiera %d obraz(ów) bez wymaganego opisu alternatywnego (alt). Uzupełnij je w edytorze mediów, aby spełnić kryterium WCAG 1.1.1."
+msgstr ""
+
+msgid "Automatyczna naprawa 1-klik w Wersji PRO &rarr;"
+msgstr ""

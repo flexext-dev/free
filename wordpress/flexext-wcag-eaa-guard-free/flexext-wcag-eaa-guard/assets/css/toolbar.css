@@ -1,0 +1,28 @@
+/* FlexExt WCAG Free Front-end Accessibility Toolbar Styles */
+body.flx-wcag-font-large {
+    font-size: 120% !important;
+}
+
+body.flx-wcag-font-xlarge {
+    font-size: 140% !important;
+}
+
+body.flx-wcag-high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+body.flx-wcag-high-contrast img,
+body.flx-wcag-high-contrast video,
+body.flx-wcag-high-contrast iframe,
+body.flx-wcag-high-contrast #flx-wcag-toolbar-root {
+    filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+body.flx-wcag-highlight-links a {
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    background-color: #fef08a !important;
+    color: #854d0e !important;
+}

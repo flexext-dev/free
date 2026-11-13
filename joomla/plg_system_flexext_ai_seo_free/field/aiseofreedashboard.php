@@ -28,7 +28,7 @@ class JFormFieldAiseofreedashboard extends FormField
                         <p style="margin: 3px 0 0 0; color: #94A3B8; font-size: 13px;">Optymalizacja witryny Joomla dla wyszukiwarek sztucznej inteligencji, modeli LLM oraz robotów AI.</p>
                     </div>
                 </div>
-                <a href="https://flexext.dev/en-gb/product/ai-seo-agent-readiness-joomla" target="_blank" style="background: linear-gradient(135deg, #1980F7 0%, #0066E0 100%); color: #fff; text-decoration: none; font-weight: 800; font-size: 13px; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 14px rgba(25,128,247,0.4);">Przejdź do wersji PRO ➔</a>
+                <a href="https://flexext.dev/en-gb/product/flexext-ai-seo-agent-readiness-joomla" target="_blank" style="background: linear-gradient(135deg, #1980F7 0%, #0066E0 100%); color: #fff; text-decoration: none; font-weight: 800; font-size: 13px; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 14px rgba(25,128,247,0.4);">Przejdź do wersji PRO ➔</a>
             </div>
 
             <div style="display: flex; gap: 12px; margin-bottom: 20px;">

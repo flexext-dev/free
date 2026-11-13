@@ -1,74 +1,78 @@
-=== FlexExt WCAG 2.2 & EAA Guard for WordPress ===
+=== FlexExt Web Accessibility & EAA Guard ===
 Contributors: flexext, pawelagit
 Donate link: https://flexext.dev/
-Tags: wcag, eaa, accessibility, accessibility guard, gutenberg, contrast, alt text, headings
+Tags: wcag, eaa, accessibility, toolbar, contrast
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Real-time WCAG 2.2 AA & European Accessibility Act (EAA 2025) Pre-Publish Guard for Gutenberg and Classic Editor.
+Frontend WCAG 2.2 accessibility toolbar (font resize, high contrast, link underlining) and automated missing image alt attribute checker.
 
 == Description ==
 
-**FlexExt WCAG 2.2 & EAA Guard for WordPress** is an automated pre-publish accessibility gatekeeper designed to ensure your website content complies with the **European Accessibility Act (EAA 2025 / EN 301 549)** and **WCAG 2.2 AA standards**.
+**FlexExt Web Accessibility & EAA Guard** provides your website visitors with essential on-site accessibility controls and helps editors identify missing image alternative text (WCAG 1.1.1 Non-text Content).
 
-As authors and editors compose posts in the Gutenberg Block Editor or Classic Editor, the plugin actively analyzes the DOM in real-time, highlighting color contrast failures, missing image alt texts, heading sequence violations, and ambiguous link labels before content goes live.
+It renders a lightweight, customizable floating accessibility trigger button (`♿`) on your website. When opened, visitors can effortlessly scale text size (100%, 120%, 140%), activate high-contrast dark mode, and underline all hyperlinks.
 
-### Key Features (100% Free):
-* **Real-Time Gutenberg & Classic Editor Gatekeeper:** In-editor accessibility panel provides immediate visual feedback on accessibility issues as you type.
-* **Color Contrast Checker (WCAG 1.4.3 AA):** Mathematical luminance calculation verifying 4.5:1 text-to-background contrast ratio (3:1 for large text).
-* **Image Alt-Text Enforcer (WCAG 1.1.1):** Flags missing, empty, or filename-based alternative texts on embedded images.
-* **Heading Hierarchy Sequence Validator (WCAG 1.3.1):** Validates structural document outline (preventing jumps from H1 directly to H3).
-* **1-Click Auto-Remediation:** Instant automatic fixes for common structural flaws with a single click.
-* **Optional Hard Publishing Gate:** Prevent content authors from publishing until critical accessibility errors are resolved.
-* **Admin Accessibility Tester:** Built-in sandbox allowing administrators to test and auto-fix arbitrary HTML snippets.
+### Key Features
 
-### Free vs PRO Edition Comparison:
+* **Visitor Accessibility Toolbar:** Floating trigger widget (`♿`) positioned at the bottom-left or bottom-right corner of the screen.
+* **Instant Text Resizing:** One-click font scaling for visually impaired users (100%, 120%, 140%).
+* **High Contrast / Dark Mode:** Enhances text readability against bright backgrounds.
+* **Hyperlink Highlighting:** Clearly underlines and highlights all clickable links across the page.
+* **Smart LocalStorage Memory:** Remembers visitor accessibility preferences across page reloads without cookies.
+* **Missing Image Alt Auditor on Post Save:** Automatically checks posts, pages, and products when saved and lists items with missing image `alt` attributes in the admin dashboard.
+* **Bilingual Interface (EN / PL):** Automatically adapts to English and Polish WordPress locales.
 
-| Feature | Free (WordPress.org) | PRO Edition (flexext.dev) |
-| :--- | :---: | :---: |
-| Real-time Gutenberg & Classic editor audit | ✅ Yes | ✅ Yes |
-| Color contrast analysis (WCAG 1.4.3 AA) | ✅ Yes | ✅ Yes |
-| Image missing alt-text validator | ✅ Yes | ✅ Yes |
-| Heading sequence hierarchy checker | ✅ Yes | ✅ Yes |
-| 1-Click Auto-Remediation engine | ✅ Yes | ✅ Yes |
-| Pre-publish blocking option | ✅ Yes | ✅ Yes |
-| Deep Binary PDF Document Auditing (PDF/UA) | ❌ No | ✅ Yes (Pro) |
-| Statutory Accessibility Statement Generator (EAA) | ❌ No | ✅ Yes (Pro) |
-| Whole-Site Automated URL Crawler & Scanner | ❌ No | ✅ Yes (Pro) |
-| Frontend Accessible Contrast Toolbar Widget | ❌ No | ✅ Yes (Pro) |
-| Priority 1-on-1 Commercial Support & SLA | ❌ No | ✅ Yes (Pro) |
+### Informacje po polsku / Polish Summary
 
-*Learn more about the PRO edition at [flexext.dev](https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-joomla).*
+Wtyczka **FlexExt Web Accessibility & EAA Guard** udostępnia odwiedzającym pływający pasek ułatwień dostępu WCAG 2.2 (zmiana rozmiaru czcionki 100%/120%/140%, wysoki kontrast, podkreślanie odnośników) oraz automatycznie wykrywa brakujące opisy alternatywne (`alt`) obrazków podczas zapisywania wpisów i stron.
+
+### Looking for Real-Time Gutenberg Auditing & EAA 2025 Auto-Remediation?
+
+For organizations requiring full European Accessibility Act (EAA 2025) and WCAG 2.2 AA editor enforcement, **FlexExt Web Accessibility & EAA Guard PRO** is available at [flexext.dev](https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-wordpress) with:
+* Real-time Gutenberg and Classic Editor live sidebar accessibility inspector
+* Mathematical WCAG 1.4.3 AA color contrast analyzer and pre-publish blocker
+* One-click Auto-Remediation engine (automatic contrast enhancement to 4.5:1 and ARIA synthesis)
+* Binary PDF/UA accessibility document tagger and Statutory EAA 2025 Accessibility Statement generator
 
 == Installation ==
 
-1. Download the `flexext-wcag-eaa-guard.zip` package.
-2. In your WordPress admin dashboard, navigate to **Plugins > Add New Plugin > Upload Plugin**.
-3. Select `flexext-wcag-eaa-guard.zip` and click **Install Now**.
-4. Click **Activate Plugin**.
-5. Configure publishing options under **WCAG & EAA Guard** in your WordPress admin menu.
+1. Upload the `flexext-wcag-eaa-guard` folder to `/wp-content/plugins/`, or install the `.zip` archive via **Plugins > Add New Plugin > Upload Plugin**.
+2. Activate **FlexExt Web Accessibility & EAA Guard** through the **Plugins** menu in WordPress.
+3. Configure toolbar position and inspect missing alt attributes under **WCAG Guard** in your WordPress admin menu.
 
 == Frequently Asked Questions ==
 
-= Does this plugin require any registration or license key? =
-No. The Free edition is 100% open-source under GPLv2 and works out of the box with zero license keys or trial limitations.
+= Does this plugin require an API key or registration? =
+No. The plugin is 100% open-source under GPLv2 and works out of the box without any API keys or registration.
 
-= Does this plugin alter my existing content? =
-No. The plugin only inspects content in the editor and reports violations to help authors fix them before publishing.
+= Does this plugin alter my saved post content? =
+No. The plugin only inspects saved post HTML for missing `alt` attributes and reports them in the admin dashboard so authors can add descriptions.
+
+= Does the frontend accessibility toolbar use tracking cookies? =
+No. Visitor preferences (font size, contrast, link underlining) are stored strictly in the browser's local `localStorage` and never leave the user's device.
 
 == Screenshots ==
 
-1. Gutenberg block editor showing the real-time WCAG 2.2 accessibility guard sidebar.
-2. Color contrast calculation failure with suggested compliant color palette.
-3. Admin dashboard settings and instant HTML accessibility test sandbox.
+1. Frontend WCAG 2.2 accessibility toolbar widget opened on a page.
+2. Admin configuration panel for the on-page accessibility toolbar.
+3. Missing image alt attributes audit report in the WordPress admin dashboard.
 
 == Changelog ==
 
+= 1.0.2 =
+* Standardized all global constants, option names, meta keys, transients, and nonces to the `FLEXEAAG_` / `flexeaag_` prefix for WordPress.org Plugin Directory compliance.
+* Replaced PHP 8.0 `str_starts_with()` with `strpos()` for full PHP 7.4 compatibility.
+* Removed external link from the frontend visitor accessibility widget in accordance with WordPress.org Guideline 10.
+* Removed unused asset files and redundant `load_plugin_textdomain()` call.
+
+= 1.0.1 =
+* Verified compatibility with WordPress 7.1 and PHP 8.3.
+* Added bilingual EN/PL interface support.
+
 = 1.0.0 =
-* Initial public release in WordPress.org Plugin Directory.
-* Real-time Gutenberg Block Editor and Classic Editor accessibility inspector.
-* WCAG 2.2 AA contrast, alt-text, and heading sequence analyzers.
+* Initial public release.

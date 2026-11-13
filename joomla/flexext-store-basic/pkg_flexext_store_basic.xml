@@ -1,20 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<updates>
-	<update>
-		<name>FlexExt Store Basic</name>
-		<description>FlexExt Store Basic Edition for Joomla 4, 5, 6 - Fast, lightweight e-commerce suite with Google Consent Mode v2, cart drawer, wishlist, compare, reviews, and product options.</description>
-		<element>pkg_flexext_store_basic</element>
-		<type>package</type>
-		<version>1.17.5</version>
-		<downloads>
-			<downloadurl type="full" format="zip">https://flexext.dev/free-download/78</downloadurl>
-		</downloads>
-		<tags>
-			<tag>stable</tag>
-		</tags>
-		<maintainer>FlexExt Dev</maintainer>
-		<maintainerurl>https://flexext.dev</maintainerurl>
-		<section>Updates</section>
-		<targetplatform name="joomla" version="((4\.[0-9]+)|(5\.[0-9]+)|(6\.[0-9]+))"/>
-	</update>
-</updates>
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="package" method="upgrade">
+	<name>FlexExt Store Basic</name>
+	<packagename>flexext_store_basic</packagename>
+	<version>1.17.6</version>
+	<creationDate>November 2026</creationDate>
+	<author>FlexExt Dev</author>
+	<authorEmail>contact@flexext.dev</authorEmail>
+	<authorUrl>https://flexext.dev</authorUrl>
+	<copyright>Copyright (C) 2026 FlexExt. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<url>https://flexext.dev</url>
+	<packager>FlexExt</packager>
+	<packagerurl>https://flexext.dev</packagerurl>
+	<description>FlexExt Store Basic Edition for Joomla 4, 5, 6 - Lightweight &amp; Fast E-Commerce Solution with Google Consent Mode v2, Floating Cart Drawer, Category Navigation, Product Tooltips &amp; Popovers, Technical Parameters, Facet Filtering, Verified Reviews &amp; Social Proof, Product Compare, Wishlist, and Multi-Currency Support.</description>
+	<updateservers>
+		<server type="extension" priority="1" name="FlexExt Store Basic Updates">https://flexext.dev/updates/pkg_flexext_store_basic.xml</server>
+	</updateservers>
+	<files folder="packages">
+		<file type="component" id="com_flexext_store">com_flexext_store.zip</file>
+		<file type="module" id="mod_flexext_store_dashboard" client="administrator">mod_flexext_store_dashboard.zip</file>
+		<file type="module" id="mod_flexext_store_categories" client="site">mod_flexext_store_categories.zip</file>
+		<file type="plugin" id="plg_content_flexext_store" group="content">plg_content_flexext_store.zip</file>
+		<file type="plugin" id="plg_system_flexext_store" group="system">plg_system_flexext_store.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_consent" group="system">plg_system_flexext_store_consent.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_tooltips" group="system">plg_system_flexext_store_tooltips.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_reviews" group="system">plg_system_flexext_store_reviews.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_wishlist" group="system">plg_system_flexext_store_wishlist.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_compare" group="system">plg_system_flexext_store_compare.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_parameters" group="system">plg_system_flexext_store_parameters.zip</file>
+		<file type="plugin" id="plg_system_flexext_store_filter" group="system">plg_system_flexext_store_filter.zip</file>
+	</files>
+</extension>

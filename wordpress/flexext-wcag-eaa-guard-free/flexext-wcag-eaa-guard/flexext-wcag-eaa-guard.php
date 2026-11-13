@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:       FlexExt WCAG 2.2 & EAA Guard for WordPress
- * Plugin URI:        https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-joomla
- * Description:       Strażnik dostępności cyfrowej dla edytora Gutenberg i Classic (WCAG 2.2 AA / Dyrektywa EAA 2025). Weryfikacja kontrastu, brakujących altów i hierarchii nagłówków w czasie rzeczywistym.
- * Version:           1.0.0
+ * Plugin Name:       FlexExt Web Accessibility & EAA Guard
+ * Plugin URI:        https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-wordpress
+ * Description:       Frontend WCAG 2.2 accessibility toolbar (font scaling, high contrast, link underlining) and automated missing image alt attribute auditor on post save.
+ * Version:           1.0.2
  * Author:            FlexExt Dev
  * Author URI:        https://flexext.dev/
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       flexext-wcag-guard
+ * Text Domain:       flexext-wcag-eaa-guard
  * Domain Path:       /languages
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -22,20 +22,20 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Jeśli aktywna jest pełna wersja komercyjna PRO, wersja darmowa ustępuje pierwszeństwa
+// Yield if the commercial PRO edition is active
 if (class_exists('Visacom\WpEaaGuard\Plugin')) {
     return;
 }
 
-define('FLEXEXT_WCAG_GUARD_VERSION', '1.0.0');
-define('FLEXEXT_WCAG_GUARD_FILE', __FILE__);
-define('FLEXEXT_WCAG_GUARD_DIR', plugin_dir_path(__FILE__));
-define('FLEXEXT_WCAG_GUARD_URL', plugin_dir_url(__FILE__));
+define('FLEXEAAG_VERSION', '1.0.2');
+define('FLEXEAAG_FILE', __FILE__);
+define('FLEXEAAG_DIR', plugin_dir_path(__FILE__));
+define('FLEXEAAG_URL', plugin_dir_url(__FILE__));
 
-// Require Core Classes
-require_once FLEXEXT_WCAG_GUARD_DIR . 'src/ContentAuditor.php';
-require_once FLEXEXT_WCAG_GUARD_DIR . 'src/EditorGuard.php';
-require_once FLEXEXT_WCAG_GUARD_DIR . 'src/AdminDashboard.php';
+// Require Core Classes (Frontend Accessibility Toolbar + Basic Alt Auditor + Admin Dashboard)
+require_once FLEXEAAG_DIR . 'src/AccessibilityToolbar.php';
+require_once FLEXEAAG_DIR . 'src/BasicAltAuditor.php';
+require_once FLEXEAAG_DIR . 'src/AdminDashboard.php';
 
 /**
  * Main Plugin Engine Class
@@ -55,14 +55,13 @@ final class Plugin
     private function __construct()
     {
         add_action('init', [$this, 'initPlugin']);
-        add_filter('plugin_action_links_' . plugin_basename(FLEXEXT_WCAG_GUARD_FILE), [self::class, 'addPluginActionLinks']);
+        add_filter('plugin_action_links_' . plugin_basename(FLEXEAAG_FILE), [self::class, 'addPluginActionLinks']);
     }
 
     public function initPlugin(): void
     {
-        load_plugin_textdomain('flexext-wcag-guard', false, dirname(plugin_basename(FLEXEXT_WCAG_GUARD_FILE)) . '/languages');
-
-        EditorGuard::init();
+        AccessibilityToolbar::init();
+        BasicAltAuditor::init();
         if (is_admin()) {
             AdminDashboard::init();
         }
@@ -70,16 +69,15 @@ final class Plugin
 
     public static function addPluginActionLinks(array $links): array
     {
-        $settingsUrl = admin_url('admin.php?page=flexext-wcag-guard');
-        $proUrl = 'https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-joomla';
+        $settingsUrl = admin_url('admin.php?page=flexext-wcag-eaa-guard');
+        $proUrl      = 'https://flexext.dev/en-gb/product/real-time-wcag-eaa-editor-guard-wordpress';
 
         $custom = [
-            '<a href="' . esc_url($settingsUrl) . '">' . __('Ustawienia', 'flexext-wcag-guard') . '</a>',
-            '<a href="' . esc_url($proUrl) . '" target="_blank" style="color:#059669; font-weight:700;">' . __('Wersja PRO ($25)', 'flexext-wcag-guard') . '</a>',
+            '<a href="' . esc_url($settingsUrl) . '">' . esc_html__('Settings', 'flexext-wcag-eaa-guard') . '</a>',
+            '<a href="' . esc_url($proUrl) . '" target="_blank" rel="noopener noreferrer" style="color:#059669; font-weight:700;">' . esc_html__('PRO Edition', 'flexext-wcag-eaa-guard') . '</a>',
         ];
         return array_merge($custom, $links);
     }
 }
 
-// Inicjalizacja instancji
 Plugin::getInstance();

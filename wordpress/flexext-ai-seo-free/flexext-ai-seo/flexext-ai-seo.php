@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       FlexExt AI SEO Agent Readiness for WordPress
+ * Plugin Name:       FlexExt AI SEO & Agent Readiness
  * Plugin URI:        https://flexext.dev/en-gb/product/wp-ai-seo-agent-readiness-pro
- * Description:       Optymalizacja witryny pod kątem modeli językowych i wyszukiwarek AI (ChatGPT, Claude, Perplexity). Standard /llms.txt oraz kontrola robots.txt.
- * Version:           1.0.0
+ * Description:       Optimize your WordPress site for AI search engines and LLMs (ChatGPT, Claude, Perplexity, Gemini) with standard /llms.txt generation and robots.txt AI crawler control.
+ * Version:           1.0.2
  * Author:            FlexExt Dev
  * Author URI:        https://flexext.dev/
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       flexext-ai-seo
  * Domain Path:       /languages
- * Requires at least: 5.8
+ * Requires at least: 6.0
  * Requires PHP:      7.4
  */
 
@@ -22,26 +22,24 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Jeśli aktywna jest pełna wersja komercyjna PRO, wersja darmowa ustępuje pierwszeństwa
+// Yield if the commercial PRO edition is active
 if (class_exists('FlexExt\WordPress\AiSeo\Plugin')) {
     return;
 }
 
-define('FLEXEXT_AI_SEO_FREE_VERSION', '1.0.0');
-define('FLEXEXT_AI_SEO_FREE_FILE', __FILE__);
-define('FLEXEXT_AI_SEO_FREE_DIR', plugin_dir_path(__FILE__));
-define('FLEXEXT_AI_SEO_FREE_URL', plugin_dir_url(__FILE__));
+define('FLEXAISEO_VERSION', '1.0.2');
+define('FLEXAISEO_FILE', __FILE__);
+define('FLEXAISEO_DIR', plugin_dir_path(__FILE__));
+define('FLEXAISEO_URL', plugin_dir_url(__FILE__));
 
 // Require Core Classes
-require_once FLEXEXT_AI_SEO_FREE_DIR . 'src/BotManager.php';
-require_once FLEXEXT_AI_SEO_FREE_DIR . 'src/LlmsTxtGenerator.php';
-require_once FLEXEXT_AI_SEO_FREE_DIR . 'src/AgentReadinessAuditor.php';
-require_once FLEXEXT_AI_SEO_FREE_DIR . 'src/AdminDashboard.php';
+require_once FLEXAISEO_DIR . 'src/BotManager.php';
+require_once FLEXAISEO_DIR . 'src/AdminDashboard.php';
 
 /**
- * Main Plugin Engine Class (Free Edition)
+ * Main Plugin Engine Class
  */
-class Plugin
+final class Plugin
 {
     private static ?Plugin $instance = null;
 
@@ -55,44 +53,47 @@ class Plugin
 
     private function __construct()
     {
-        // Obsługa żądań /llms.txt
+        // Serve /llms.txt endpoint
         add_action('init', [$this, 'handleInit'], 1);
 
-        // Modyfikacja wirtualnego pliku robots.txt
+        // Inject AI crawler directives into virtual robots.txt
         add_filter('robots_txt', [$this, 'filterRobotsTxt'], 10, 2);
 
-        // Panel administracyjny
+        // Admin interface
         if (is_admin()) {
             add_action('admin_menu', [$this, 'registerAdminMenu']);
-            add_action('admin_post_flx_ai_seo_save_bots', [$this, 'handleSaveBots']);
-            add_action('admin_post_flx_ai_seo_save_llms', [$this, 'handleSaveLlms']);
-            add_filter('plugin_action_links_' . plugin_basename(FLEXEXT_AI_SEO_FREE_FILE), [$this, 'addPluginActionLinks']);
+            add_action('admin_post_flexaiseo_save_bots', [$this, 'handleSaveBots']);
+            add_action('admin_post_flexaiseo_save_llms', [$this, 'handleSaveLlms']);
+            add_filter('plugin_action_links_' . plugin_basename(FLEXAISEO_FILE), [$this, 'addPluginActionLinks']);
         }
     }
 
     public function handleInit(): void
     {
-        $uri = $_SERVER['REQUEST_URI'] ?? '';
-        $path = parse_url($uri, PHP_URL_PATH);
+        $uri  = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
+        $path = wp_parse_url($uri, PHP_URL_PATH);
 
         if ($path === '/llms.txt') {
             $settings = $this->getSettings();
             if (!empty($settings['enable_llms_txt'])) {
                 header('Content-Type: text/plain; charset=utf-8');
                 header('X-Robots-Tag: noindex, follow');
-                
-                $title = $settings['llms_title'] ?: get_bloginfo('name');
-                $summary = $settings['llms_summary'] ?: get_bloginfo('description');
-                
-                echo "# " . esc_html($title) . "\n\n";
-                echo "> " . esc_html($summary) . "\n\n";
-                echo "## Primary Documentation\n\n";
-                echo "- [" . esc_html($title) . "](" . esc_url(get_site_url()) . "): Main website and store.\n";
-                
-                // Pokaż ostatnie wpisy lub strony
-                $posts = get_posts(['numberposts' => 10, 'post_status' => 'publish']);
+
+                $title   = !empty($settings['llms_title']) ? $settings['llms_title'] : get_bloginfo('name');
+                $summary = !empty($settings['llms_summary']) ? $settings['llms_summary'] : get_bloginfo('description');
+
+                echo "# " . esc_html((string) $title) . "\n\n";
+                echo "> " . esc_html((string) $summary) . "\n\n";
+                echo "## Primary Pages & Recent Content\n\n";
+                echo "- [" . esc_html((string) $title) . "](" . esc_url(get_site_url()) . "): Main website.\n";
+
+                $posts = get_posts([
+                    'numberposts' => 5,
+                    'post_status' => 'publish',
+                    'post_type'   => ['page', 'post'],
+                ]);
                 foreach ($posts as $p) {
-                    echo "- [" . esc_html($p->post_title) . "](" . esc_url(get_permalink($p->ID)) . ")\n";
+                    echo "- [" . esc_html($p->post_title) . "](" . esc_url((string) get_permalink($p->ID)) . ")\n";
                 }
                 exit;
             }
@@ -102,8 +103,8 @@ class Plugin
     public function filterRobotsTxt(string $output, bool $public): string
     {
         $settings = $this->getSettings();
-        $policy = $settings['bot_policy'] ?? [];
-        $bots = BotManager::getTrackedBots();
+        $policy   = $settings['bot_policy'] ?? [];
+        $bots     = BotManager::getTrackedBots();
 
         $aiRules = "\n# --- FlexExt AI Bot Directives ---\n";
         foreach ($bots as $k => $b) {
@@ -127,16 +128,24 @@ class Plugin
             'llms_title'      => get_bloginfo('name'),
             'llms_summary'    => get_bloginfo('description'),
             'bot_policy'      => [
-                'gptbot'           => 'allow',
-                'chatgpt_user'     => 'allow',
-                'claudebot'        => 'allow',
-                'perplexitybot'    => 'allow',
-                'google_extended'  => 'allow',
-                'applebot_extended'=> 'allow',
-                'meta_external'    => 'allow',
-            ]
+                'gptbot'            => 'allow',
+                'oai_searchbot'     => 'allow',
+                'chatgpt_user'      => 'allow',
+                'claudebot'         => 'allow',
+                'perplexitybot'     => 'allow',
+                'google_extended'   => 'allow',
+                'applebot_extended' => 'allow',
+                'meta_external'     => 'allow',
+                'ccbot'             => 'disallow',
+            ],
         ];
-        $stored = get_option('flexext_ai_seo_free_settings', []);
+        $stored = get_option('flexaiseo_settings', []);
+        if (empty($stored) || !is_array($stored)) {
+            $legacy = get_option('flexext_ai_seo_free_settings', []);
+            if (is_array($legacy) && !empty($legacy)) {
+                $stored = $legacy;
+            }
+        }
         return is_array($stored) ? array_merge($defaults, $stored) : $defaults;
     }
 
@@ -144,7 +153,7 @@ class Plugin
     {
         add_menu_page(
             __('AI SEO & LLMs.txt', 'flexext-ai-seo'),
-            __('AI SEO (Free)', 'flexext-ai-seo'),
+            __('AI SEO & LLMs.txt', 'flexext-ai-seo'),
             'manage_options',
             'flexext-ai-seo',
             [$this, 'renderAdminPage'],
@@ -163,18 +172,16 @@ class Plugin
         if (!current_user_can('manage_options')) {
             return;
         }
-        check_admin_referer('flx_ai_seo_save_bots', 'flx_ai_seo_nonce');
+        check_admin_referer('flexaiseo_save_bots', 'flexaiseo_nonce');
 
-        $settings = $this->getSettings();
-        $rawPolicy = $_POST['bot_policy'] ?? [];
+        $settings      = $this->getSettings();
+        $rawPolicy     = isset($_POST['bot_policy']) && is_array($_POST['bot_policy']) ? array_map('sanitize_text_field', wp_unslash($_POST['bot_policy'])) : [];
         $cleanedPolicy = [];
-        if (is_array($rawPolicy)) {
-            foreach ($rawPolicy as $k => $v) {
-                $cleanedPolicy[sanitize_key($k)] = ($v === 'disallow') ? 'disallow' : 'allow';
-            }
+        foreach ($rawPolicy as $k => $v) {
+            $cleanedPolicy[sanitize_key((string) $k)] = ($v === 'disallow') ? 'disallow' : 'allow';
         }
         $settings['bot_policy'] = $cleanedPolicy;
-        update_option('flexext_ai_seo_free_settings', $settings);
+        update_option('flexaiseo_settings', $settings);
 
         wp_safe_redirect(admin_url('admin.php?page=flexext-ai-seo&tab=bots&saved=1'));
         exit;
@@ -185,13 +192,13 @@ class Plugin
         if (!current_user_can('manage_options')) {
             return;
         }
-        check_admin_referer('flx_ai_seo_save_llms', 'flx_ai_seo_nonce');
+        check_admin_referer('flexaiseo_save_llms', 'flexaiseo_nonce');
 
-        $settings = $this->getSettings();
+        $settings                    = $this->getSettings();
         $settings['enable_llms_txt'] = !empty($_POST['enable_llms_txt']) ? 1 : 0;
-        $settings['llms_title'] = sanitize_text_field(wp_unslash($_POST['llms_title'] ?? ''));
-        $settings['llms_summary'] = sanitize_textarea_field(wp_unslash($_POST['llms_summary'] ?? ''));
-        update_option('flexext_ai_seo_free_settings', $settings);
+        $settings['llms_title']      = sanitize_text_field(wp_unslash($_POST['llms_title'] ?? ''));
+        $settings['llms_summary']    = sanitize_textarea_field(wp_unslash($_POST['llms_summary'] ?? ''));
+        update_option('flexaiseo_settings', $settings);
 
         wp_safe_redirect(admin_url('admin.php?page=flexext-ai-seo&tab=llms&saved=1'));
         exit;
@@ -200,15 +207,14 @@ class Plugin
     public function addPluginActionLinks(array $links): array
     {
         $settingsUrl = admin_url('admin.php?page=flexext-ai-seo');
-        $proUrl = 'https://flexext.dev/en-gb/product/wp-ai-seo-agent-readiness-pro';
+        $proUrl      = 'https://flexext.dev/en-gb/product/wp-ai-seo-agent-readiness-pro';
 
         $custom = [
-            '<a href="' . esc_url($settingsUrl) . '">' . __('Ustawienia', 'flexext-ai-seo') . '</a>',
-            '<a href="' . esc_url($proUrl) . '" target="_blank" style="color:#059669; font-weight:700;">' . __('Wersja PRO ($25)', 'flexext-ai-seo') . '</a>',
+            '<a href="' . esc_url($settingsUrl) . '">' . esc_html__('Settings', 'flexext-ai-seo') . '</a>',
+            '<a href="' . esc_url($proUrl) . '" target="_blank" rel="noopener noreferrer" style="color:#059669; font-weight:700;">' . esc_html__('PRO Edition', 'flexext-ai-seo') . '</a>',
         ];
         return array_merge($custom, $links);
     }
 }
 
-// Inicjalizacja instancji
 Plugin::getInstance();
