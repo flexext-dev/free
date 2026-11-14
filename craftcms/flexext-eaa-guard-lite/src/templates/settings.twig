@@ -1,0 +1,33 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.lightswitchField({
+  label: "Enable EAA & WCAG Guard Lite",
+  id: "enabled",
+  name: "enabled",
+  on: settings.enabled
+}) }}
+
+{{ forms.lightswitchField({
+  label: "Publish /accessibility-statement Page",
+  instructions: "Exposes a WCAG 2.2 AA & EN 301 549 compliance statement at /accessibility-statement.",
+  id: "enableStatementRoute",
+  name: "enableStatementRoute",
+  on: settings.enableStatementRoute
+}) }}
+
+{{ forms.textField({
+  label: "Organization Name",
+  id: "organizationName",
+  name: "organizationName",
+  value: settings.organizationName,
+  errors: settings.getErrors("organizationName")
+}) }}
+
+{{ forms.textField({
+  label: "Accessibility Contact Email",
+  id: "contactEmail",
+  name: "contactEmail",
+  type: "email",
+  value: settings.contactEmail,
+  errors: settings.getErrors("contactEmail")
+}) }}

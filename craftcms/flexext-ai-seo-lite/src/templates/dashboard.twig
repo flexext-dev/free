@@ -1,0 +1,79 @@
+{% extends "_layouts/cp" %}
+{% set title = "FlexExt AI SEO & llms.txt Lite" %}
+
+{% block content %}
+<style>
+  :root {
+    --flx-bg: #f8fafc;
+    --flx-card: #ffffff;
+    --flx-text: #0f172a;
+    --flx-muted: #334155;
+    --flx-border: #cbd5e1;
+    --flx-accent: #0369a1;
+    --flx-accent-text: #ffffff;
+    --flx-ok-bg: #dcfce7;
+    --flx-ok-text: #14532d;
+    --flx-pro-bg: #eff6ff;
+    --flx-pro-text: #1e3a8a;
+  }
+  body.dark, [data-bs-theme="dark"] {
+    --flx-bg: #0f172a;
+    --flx-card: #1e293b;
+    --flx-text: #f8fafc;
+    --flx-muted: #cbd5e1;
+    --flx-border: #334155;
+    --flx-accent: #38bdf8;
+    --flx-accent-text: #082f49;
+    --flx-ok-bg: #052e16;
+    --flx-ok-text: #bbf7d0;
+    --flx-pro-bg: #172554;
+    --flx-pro-text: #dbeafe;
+  }
+  @media (prefers-color-scheme: dark) {
+    body.system {
+      --flx-bg: #0f172a;
+      --flx-card: #1e293b;
+      --flx-text: #f8fafc;
+      --flx-muted: #cbd5e1;
+      --flx-border: #334155;
+      --flx-accent: #38bdf8;
+      --flx-accent-text: #082f49;
+      --flx-ok-bg: #052e16;
+      --flx-ok-text: #bbf7d0;
+      --flx-pro-bg: #172554;
+      --flx-pro-text: #dbeafe;
+    }
+  }
+  .flx-box { background: var(--flx-card); color: var(--flx-text); border: 1px solid var(--flx-border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+  .flx-pro { background: var(--flx-pro-bg); color: var(--flx-pro-text); border: 1px solid var(--flx-border); border-radius: 10px; padding: 20px; }
+  .flx-pre { background: var(--flx-bg); color: var(--flx-text); border: 1px solid var(--flx-border); border-radius: 8px; padding: 14px; font-family: monospace; white-space: pre-wrap; max-height: 280px; overflow: auto; }
+  .flx-btn { display: inline-block; background: var(--flx-accent); color: var(--flx-accent-text) !important; text-decoration: none; padding: 9px 16px; border-radius: 7px; font-weight: 700; margin-right: 8px; }
+  .flx-badge { display: inline-block; background: var(--flx-ok-bg); color: var(--flx-ok-text); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 12px; }
+</style>
+
+<div class="flx-box">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div>
+      <span class="flx-badge">MIT Open-Source Starter &bull; v{{ plugin.version }}</span>
+      <h2 style="margin:8px 0 4px;color:var(--flx-text);">AI Discovery &amp; /llms.txt Status</h2>
+      <p style="margin:0;color:var(--flx-muted);">Your public Markdown index is served at <a href="{{ baseUrl }}/llms.txt" target="_blank" rel="noopener">{{ baseUrl }}/llms.txt</a>.</p>
+    </div>
+    <div>
+      <a class="flx-btn" href="{{ settingsUrl }}">Configure Settings</a>
+      <a class="flx-btn" href="https://aichecker.flexext.dev/?url={{ baseUrl|url_encode }}" target="_blank" rel="noopener">Run 25-Check AI Audit ↗</a>
+    </div>
+  </div>
+
+  <h3 style="margin:18px 0 8px;color:var(--flx-text);">Live <code>/llms.txt</code> Output Preview</h3>
+  <pre class="flx-pre">{{ llmsPreview }}</pre>
+</div>
+
+<div class="flx-pro">
+  <h3 style="margin:0 0 8px;color:var(--flx-pro-text);">🚀 Need HTTP Markdown Negotiation, MCP Server Cards &amp; AI Crawler Analytics?</h3>
+  <p style="margin:0 0 12px;color:var(--flx-pro-text);">
+    Upgrade to <strong>FlexExt AI SEO &amp; Agent Readiness Pro</strong> to unlock <code>Accept: text/markdown</code> content negotiation (~80% lower LLM token usage), full <code>/llms-full.txt</code> field export, <code>/.well-known/mcp/server-card.json</code> + live Entry search, Google A2A agent cards, and real-time 14-bot traffic telemetry &amp; 403 training crawler blocking.
+  </p>
+  <a class="flx-btn" href="https://flexext.dev/en-gb/product/craft-cms-ai-seo-agent-readiness-pro" target="_blank" rel="noopener">Get FlexExt AI SEO Pro ↗</a>
+  <a class="flx-btn" href="https://demo.flexext.dev/craft/" target="_blank" rel="noopener">Try Live Craft 5 Pro Demo ↗</a>
+</div>
+{% endblock %}

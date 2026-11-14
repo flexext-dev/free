@@ -1,0 +1,55 @@
+{
+  "name": "flexext/flexext-ai-seo-lite",
+  "description": "Free /llms.txt generator, HTTP Link discovery header, and WebSite/Organization Schema.org JSON-LD starter plugin for Craft CMS 4 & 5.",
+  "type": "craft-plugin",
+  "version": "1.0.0",
+  "keywords": [
+    "craftcms",
+    "ai",
+    "seo",
+    "llms-txt",
+    "geo",
+    "schema-org",
+    "structured-data"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "FlexExt",
+      "homepage": "https://flexext.dev",
+      "email": "contact@flexext.dev"
+    }
+  ],
+  "support": {
+    "email": "contact@flexext.dev",
+    "issues": "https://github.com/flexext-dev/flexext-ai-seo-lite/issues",
+    "source": "https://github.com/flexext-dev/flexext-ai-seo-lite",
+    "docs": "https://github.com/flexext-dev/flexext-ai-seo-lite/blob/main/README.md"
+  },
+  "require": {
+    "php": "^8.1",
+    "craftcms/cms": "^4.5.0 || ^5.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "flexext\\aiseolite\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "FlexExt AI SEO & llms.txt Lite",
+    "handle": "flexext-ai-seo-lite",
+    "developer": "FlexExt",
+    "developerUrl": "https://flexext.dev",
+    "documentationUrl": "https://github.com/flexext-dev/flexext-ai-seo-lite/blob/main/README.md",
+    "changelogUrl": "https://raw.githubusercontent.com/flexext-dev/flexext-ai-seo-lite/main/CHANGELOG.md",
+    "class": "flexext\\aiseolite\\Plugin",
+    "hasCpSettings": true,
+    "hasCpSection": true
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}

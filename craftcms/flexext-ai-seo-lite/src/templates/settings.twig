@@ -1,0 +1,45 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.lightswitchField({
+  label: "Enable AI SEO Lite",
+  id: "enabled",
+  name: "enabled",
+  on: settings.enabled
+}) }}
+
+{{ forms.lightswitchField({
+  label: "Serve /llms.txt & HTTP Link Header",
+  instructions: "Publishes /llms.txt and adds Link: </llms.txt>; rel=\"llms-txt\" on public HTML pages.",
+  id: "enableLlmsTxt",
+  name: "enableLlmsTxt",
+  on: settings.enableLlmsTxt
+}) }}
+
+{{ forms.lightswitchField({
+  label: "Inject Base WebSite & Organization JSON-LD",
+  instructions: "Adds Schema.org WebSite and Organization JSON-LD when no JSON-LD script is present.",
+  id: "enableJsonLd",
+  name: "enableJsonLd",
+  on: settings.enableJsonLd
+}) }}
+
+{{ forms.textField({
+  label: "Maximum Entries in /llms.txt (Lite: up to 50)",
+  id: "entryLimit",
+  name: "entryLimit",
+  type: "number",
+  min: 5,
+  max: 50,
+  value: settings.entryLimit,
+  errors: settings.getErrors("entryLimit")
+}) }}
+
+{{ forms.textareaField({
+  label: "Site Summary for AI Agents",
+  instructions: "Short summary shown at the top of /llms.txt.",
+  id: "siteSummary",
+  name: "siteSummary",
+  rows: 3,
+  value: settings.siteSummary,
+  errors: settings.getErrors("siteSummary")
+}) }}
