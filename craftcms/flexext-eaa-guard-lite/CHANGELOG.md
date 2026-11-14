@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2026-11-14
+
+### Changed
+- Updated Control Panel SVG icon to official cohesive FlexExt `F` emblem with WCAG compliance shield badge for high-contrast Light & Dark mode clarity.
+- Added Control Panel scanner & settings screenshots.
+
 ## 1.0.0 - 2026-11-14
 
 ### Added

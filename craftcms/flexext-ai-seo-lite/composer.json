@@ -2,7 +2,7 @@
   "name": "flexext/flexext-ai-seo-lite",
   "description": "Free /llms.txt generator, HTTP Link discovery header, and WebSite/Organization Schema.org JSON-LD starter plugin for Craft CMS 4 & 5.",
   "type": "craft-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "craftcms",
     "ai",

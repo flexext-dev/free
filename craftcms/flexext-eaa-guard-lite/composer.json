@@ -2,7 +2,7 @@
   "name": "flexext/flexext-eaa-guard-lite",
   "description": "Free WCAG 2.2 AA & European Accessibility Act (EAA) entry alt/heading scanner and /accessibility-statement generator for Craft CMS 4 & 5.",
   "type": "craft-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "craftcms",
     "accessibility",

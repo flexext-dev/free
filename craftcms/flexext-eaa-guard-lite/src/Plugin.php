@@ -20,7 +20,7 @@ use yii\web\Response;
  */
 class Plugin extends BasePlugin
 {
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.0.1';
 
     public string $schemaVersion = '1.0.0';
     public bool $hasCpSettings = true;
